@@ -1,6 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Login from './components/login';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -15,10 +16,3 @@ function App() {
 }
 
 export default App;
-
-
-const NotFound = () => {
-  return (
-    <h1>404 Not Found</h1>
-  );
-}
