@@ -131,7 +131,7 @@ export default function Register() {
 					user_type: formData.user_type,
 				})
 				.then((res) => {
-					history.push('/');
+					history.push('/login');
 					console.log(res);
 					console.log(res.data);
 				})

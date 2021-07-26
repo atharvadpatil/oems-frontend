@@ -35,7 +35,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             OEMS
           </Typography>
-          <Button variant="outlined" color="inherit" href="/">
+          <Button variant="outlined" color="inherit" href="/login">
             Login
           </Button>
         </Toolbar>
