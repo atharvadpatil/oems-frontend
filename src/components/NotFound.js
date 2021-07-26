@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Copyright from './copyright'
 
 //IMAGE
 import four0four from '../images/404.svg';
@@ -52,6 +53,9 @@ const NotFound = () => {
                             </Link>
                         </Grid>
                     </Grid>
+                    <Box mt={5}>
+                        <Copyright />
+                    </Box>
                 </Box>
             </Paper>
         </div>
