@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Copyright from './copyright'
 
 //IMAGE
-import study3 from '../images/study3.svg';
+import bg from '../images/bg.svg';
 
 //MUI
 import Avatar from '@material-ui/core/Avatar';
@@ -23,7 +23,7 @@ import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
     image: {
-        backgroundImage: `url(${study3})`,
+        backgroundImage: `url(${bg})`,
         backgroundRepeat: 'repeat',
         backgroundColor: indigo[50],
         backgroundSize: 'cover',
