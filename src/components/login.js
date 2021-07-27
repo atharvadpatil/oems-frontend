@@ -18,6 +18,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
     image: {
@@ -48,7 +50,14 @@ const useStyles = makeStyles((theme) => ({
     spacing: {
         margin: theme.spacing(3),
     },
+    snackbar: {
+        paddingBottom: theme.spacing(3),
+    },
 }));
+
+function TransitionLeft(props) {
+    return <Slide {...props} direction="left" />;
+}
 
 export default function SignIn() {
 
@@ -59,8 +68,16 @@ export default function SignIn() {
     });
 
     const [formData, updateFormData] = useState(initialFormData);
+    const [emailerror, setEmailerror] = useState(false);
+    const [passerror, setPasserror] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [transition, setTransition] = useState(undefined);
 
     const handleChange = (e) => {
+
+        setEmailerror(false)
+        setPasserror(false)
+
         updateFormData({
             ...formData,
             [e.target.name]: e.target.value.trim(),
@@ -70,24 +87,59 @@ export default function SignIn() {
     const handleSubmit = (e) => {
 
         e.preventDefault();
+
         console.log(formData);
 
-        axiosInstance
-            .post(`auth/login/`, {
-                email: formData.email,
-                password: formData.password,
-            })
-            .then((res) => {
-                localStorage.setItem('access_token', res.data.user_data.tokens.access);
-                localStorage.setItem('refresh_token', res.data.user_data.tokens.refresh);
+        // Validation
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let submit = true
 
-                axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
+        setEmailerror(false)
+        setPasserror(false)
 
-                history.push('/dashboard');
-                //console.log(res);
-                //console.log(res.data);
-            })
-            .catch(err => { console.log(err) });;
+        if (formData.email === "" || !re.test(formData.email)) {
+            setEmailerror(true)
+            submit = false
+            console.log(submit)
+            console.log(formData.email)
+        }
+        if (formData.password === "") {
+            setPasserror(true)
+            submit = false
+            console.log(submit)
+            console.log(formData.password)
+        }
+
+
+        if (submit) {
+            axiosInstance
+                .post(`auth/login/`, {
+                    email: formData.email,
+                    password: formData.password,
+                })
+                .then((res) => {
+                    localStorage.setItem('access_token', res.data.user_data.tokens.access);
+                    localStorage.setItem('refresh_token', res.data.user_data.tokens.refresh);
+
+                    axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
+
+                    history.push('/dashboard');
+
+                    //console.log(res);
+                    //console.log(res.data);
+
+                    if (res.status === 401 && res.data.detail === "Invalid credentials, try again") {
+                        setTransition(() => TransitionLeft);
+                        setOpen(true);
+                    }
+
+                })
+                .catch(err => { console.log(err) });;
+        }
+    };
+
+    const handleClose = () => {
+        setOpen(false);
     };
 
     const classes = useStyles();
@@ -114,6 +166,7 @@ export default function SignIn() {
                                 autoComplete="email"
                                 autoFocus
                                 onChange={handleChange}
+                                error={emailerror}
                             />
                             <TextField
                                 variant="outlined"
@@ -126,6 +179,7 @@ export default function SignIn() {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={handleChange}
+                                error={passerror}
                             />
                             <Button
                                 type="submit"
@@ -154,6 +208,14 @@ export default function SignIn() {
                             </Box>
                         </form>
                     </div>
+                    <Snackbar
+                        open={open}
+                        onClose={handleClose}
+                        TransitionComponent={transition}
+                        message="Invalid Login Credentials! Please Try Again"
+                        key={transition ? transition.name : ''}
+                        className={classes.snackbar}
+                    />
                 </Grid>
             </Grid>
         </Container>

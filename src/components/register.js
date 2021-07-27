@@ -23,6 +23,8 @@ import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import Typography from '@material-ui/core/Typography';
 import indigo from '@material-ui/core/colors/indigo';
 import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
 	image: {
@@ -59,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+function TransitionLeft(props) {
+	return <Slide {...props} direction="left" />;
+}
+
 export default function Register() {
 
 	const history = useHistory();
@@ -74,8 +80,16 @@ export default function Register() {
 	const [nameerror, setNameerror] = useState(false);
 	const [passerror, setPasserror] = useState(false);
 	const [typeerror, setTypeerror] = useState(false);
+	const [open, setOpen] = useState(false);
+	const [transition, setTransition] = useState(undefined);
 
 	const handleChange = (e) => {
+
+		setEmailerror(false)
+		setNameerror(false)
+		setPasserror(false)
+		setTypeerror(false)
+
 		updateFormData({
 			...formData,
 			// Trimming any whitespace
@@ -89,7 +103,7 @@ export default function Register() {
 		console.log(formData);
 
 		// Validation
-		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		let submit = true
 
 		setEmailerror(false)
@@ -122,6 +136,7 @@ export default function Register() {
 			console.log(formData.user_type)
 		}
 
+		
 		if (submit) {
 			axiosInstance
 				.post(`auth/register/`, {
@@ -132,11 +147,22 @@ export default function Register() {
 				})
 				.then((res) => {
 					history.push('/login');
-					console.log(res);
-					console.log(res.data);
+
+					//console.log(res);
+					//console.log(res.data);
+
+					if (res.status === 400) {
+						setTransition(() => TransitionLeft);
+						setOpen(true);
+					}
+
 				})
 				.catch(err => { console.log(err) });
 		}
+	};
+
+	const handleClose = () => {
+		setOpen(false);
 	};
 
 	const classes = useStyles();
@@ -244,6 +270,13 @@ export default function Register() {
 							</Box>
 						</form>
 					</div>
+					<Snackbar
+						open={open}
+						onClose={handleClose}
+						TransitionComponent={transition}
+						message="Invalid Login Credentials! Please Try Again"
+						key={transition ? transition.name : ''}
+					/>
 				</Grid>
 			</Grid>
 		</>
