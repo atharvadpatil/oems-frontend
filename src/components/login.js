@@ -83,7 +83,7 @@ export default function SignIn() {
 
                 axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
 
-                history.push('/');
+                history.push('/dashboard');
                 //console.log(res);
                 //console.log(res.data);
             })
@@ -139,7 +139,7 @@ export default function SignIn() {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
+                                    <Link href="/forgot-password" variant="body2">
                                         Forgot password?
                                     </Link>
                                 </Grid>
