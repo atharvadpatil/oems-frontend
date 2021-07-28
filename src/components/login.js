@@ -103,7 +103,7 @@ export default function SignIn() {
             console.log(submit)
             console.log(formData.email)
         }
-        if (formData.password === "") {
+        if (formData.password === "" || formData.password.length < 6) {
             setPasserror(true)
             submit = false
             console.log(submit)
@@ -113,11 +113,14 @@ export default function SignIn() {
 
         if (submit) {
             axiosInstance
-                .post(`auth/login/`, {
-                    email: formData.email,
-                    password: formData.password,
+                .post(`auth/login`, {
+                    "email": formData.email,
+                    "password": formData.password,
                 })
                 .then((res) => {
+                    console.log(res);
+                    console.log(res.data);
+
                     localStorage.setItem('access_token', res.data.user_data.tokens.access);
                     localStorage.setItem('refresh_token', res.data.user_data.tokens.refresh);
 
@@ -125,16 +128,14 @@ export default function SignIn() {
 
                     history.push('/dashboard');
 
-                    //console.log(res);
-                    //console.log(res.data);
-
-                    if (res.status === 401 && res.data.detail === "Invalid credentials, try again") {
-                        setTransition(() => TransitionLeft);
-                        setOpen(true);
-                    }
-
                 })
-                .catch(err => { console.log(err) });;
+                .catch(err => { 
+					console.log(err)
+					if (err.response.status === 401 && err.response.data.detail === "Invalid credentials, try again") {
+						setTransition(() => TransitionLeft);
+						setOpen(true);
+					}
+				});
         }
     };
 
