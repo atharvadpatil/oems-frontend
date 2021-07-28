@@ -123,7 +123,7 @@ export default function Register() {
 			console.log(submit)
 			console.log(formData.name)
 		}
-		if (formData.password === "") {
+		if (formData.password === "" || formData.password.length < 6) {
 			setPasserror(true)
 			submit = false
 			console.log(submit)
@@ -139,25 +139,24 @@ export default function Register() {
 		
 		if (submit) {
 			axiosInstance
-				.post(`auth/register/`, {
-					email: formData.email,
-					name: formData.username,
-					password: formData.password,
-					user_type: formData.user_type,
+				.post(`auth/register`, {
+					"email": formData.email,
+					"name": formData.name,
+					"password": formData.password,
+					"user_type": formData.user_type,
 				})
 				.then((res) => {
+					console.log(res);
+					console.log(res.data);
 					history.push('/login');
-
-					//console.log(res);
-					//console.log(res.data);
-
-					if (res.status === 400) {
+				})
+				.catch(err => { 
+					console.log(err)
+					if (err.response.status === 400) {
 						setTransition(() => TransitionLeft);
 						setOpen(true);
 					}
-
-				})
-				.catch(err => { console.log(err) });
+				});
 		}
 	};
 
@@ -210,7 +209,7 @@ export default function Register() {
 										id="Name"
 										label="Name"
 										name="name"
-										autoComplete="username"
+										autoComplete="name"
 										onChange={handleChange}
 										error={nameerror}
 									/>
@@ -242,8 +241,8 @@ export default function Register() {
 											onChange={handleChange}
 											error={typeerror}
 										>
-											<MenuItem value={'Student'}>Student</MenuItem>
-											<MenuItem value={'Teacher'}>Teacher</MenuItem>
+											<MenuItem value={'student'}>Student</MenuItem>
+											<MenuItem value={'teacher'}>Teacher</MenuItem>
 										</Select>
 									</FormControl>
 								</Grid>
@@ -274,7 +273,7 @@ export default function Register() {
 						open={open}
 						onClose={handleClose}
 						TransitionComponent={transition}
-						message="Invalid Login Credentials! Please Try Again"
+						message="Invalid Registration Data! Please Try Again"
 						key={transition ? transition.name : ''}
 					/>
 				</Grid>
