@@ -20,7 +20,7 @@ function App() {
         <Route path = "/register" component = {Register} exact />
         <Route path = "/login" component = {Login} exact />
         <Route path = "/forgot-password" component = {ForgotPassword} exact />
-        <Route path = "/reset-password" component = {ResetPassword} exact />
+        <Route path = "/reset-password%3ftoken_valid%3dTrue%26message%3dCredentials_Valid/:uidb64/:token" component = {ResetPassword} />
         <Route component = {NotFound} />
       </Switch>
     </div>
