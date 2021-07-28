@@ -5,6 +5,7 @@ import Login from './components/login';
 import Dashboard from './components/dashboard';
 import Register from './components/register';
 import ForgotPassword from './components/forgotpassword';
+import ResetPassword from './components/resetpassword';
 import NotFound from './components/NotFound';
 import Navbar from './components/navbar';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path = "/register" component = {Register} exact />
         <Route path = "/login" component = {Login} exact />
         <Route path = "/forgot-password" component = {ForgotPassword} exact />
+        <Route path = "/reset-password" component = {ResetPassword} exact />
         <Route component = {NotFound} />
       </Switch>
     </div>

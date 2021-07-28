@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
-import { useHistory } from 'react-router-dom';
 
 //IMAGE
 import study4 from '../images/study4.svg';
@@ -55,7 +54,6 @@ function TransitionLeft(props) {
 
 const ForgotPassword = () => {
 
-    const history = useHistory();
     const [email, setEmail] = useState('');
     const [emailerror, setEmailerror] = useState(false);
     const [open, setOpen] = useState(false);
@@ -88,21 +86,19 @@ const ForgotPassword = () => {
         if (submit) {
             axiosInstance
                 .post(`auth/request-reset-email`, {
-                    email: email
+                    "email": email
                 })
                 .then((res) => {
-                    //history.push('/reset-password');
-
-                    //console.log(res);
-                    //console.log(res.data);
-
-                    if (res.status === 400) {
-                        setTransition(() => TransitionLeft);
-                        setOpen(true);
-                    }
-
+                    console.log(res);
+                    console.log(res.data);
                 })
-                .catch(err => { console.log(err) });
+                .catch(err => { 
+					console.log(err)
+					if (err.response.status === 400) {
+						setTransition(() => TransitionLeft);
+						setOpen(true);
+					}
+				});
         }
     };
 
