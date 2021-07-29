@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useHistory } from 'react-router-dom';
 import Copyright from './copyright'
+import AlertDialog from "./AlertDialog";
 
 //IMAGE
 import study2 from '../images/study2.svg';
@@ -80,8 +81,18 @@ export default function Register() {
 	const [nameerror, setNameerror] = useState(false);
 	const [passerror, setPasserror] = useState(false);
 	const [typeerror, setTypeerror] = useState(false);
+
+	//Snackbar
 	const [open, setOpen] = useState(false);
 	const [transition, setTransition] = useState(undefined);
+
+	//AlertDialog
+	const [openState, setOpenState] = useState(false);
+	const openDialog = () => setOpenState(true);
+	const closeDialog = () => { 
+		setOpenState(false); 
+		history.push('/login');
+	}
 
 	const handleChange = (e) => {
 
@@ -148,7 +159,7 @@ export default function Register() {
 				.then((res) => {
 					console.log(res);
 					console.log(res.data);
-					history.push('/login');
+					openDialog();
 				})
 				.catch(err => { 
 					console.log(err)
@@ -276,6 +287,11 @@ export default function Register() {
 						message="Invalid Registration Data! Please Try Again"
 						key={transition ? transition.name : ''}
 					/>
+					<AlertDialog
+						open={openState}
+						closeDialog={closeDialog}
+						title="Verify Email"
+						description='An email verification link has been sent on the given email address.\nPlease verify your email to complete the account setup.\nVerification link is valid for 24 hrs' />
 				</Grid>
 			</Grid>
 		</>

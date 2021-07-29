@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
+import AlertDialog from "./AlertDialog";
 
 //IMAGE
 import study4 from '../images/study4.svg';
@@ -56,8 +57,15 @@ const ForgotPassword = () => {
 
     const [email, setEmail] = useState('');
     const [emailerror, setEmailerror] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [transition, setTransition] = useState(undefined);
+
+	//Snackbar
+	const [open, setOpen] = useState(false);
+	const [transition, setTransition] = useState(undefined);
+
+	//AlertDialog
+	const [openState, setOpenState] = useState(false);
+	const openDialog = () => setOpenState(true);
+	const closeDialog = () => setOpenState(false);
 
     const handleChange = (e) => {
         setEmailerror(false)
@@ -91,6 +99,7 @@ const ForgotPassword = () => {
                 .then((res) => {
                     console.log(res);
                     console.log(res.data);
+                    openDialog();
                 })
                 .catch(err => { 
 					console.log(err)
@@ -156,6 +165,11 @@ const ForgotPassword = () => {
                         key={transition ? transition.name : ''}
                         className={classes.snackbar}
                     />
+                    <AlertDialog
+						open={openState}
+						closeDialog={closeDialog}
+						title="Reset Password Link"
+						description='A reset password link has been sent on the given email address.\nPlease click on the link to set your new password.\nReset link is valid for 24 hrs' />
                 </Grid>
             </Grid>
         </Container>

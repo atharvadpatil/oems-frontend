@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useHistory, useParams } from 'react-router-dom';
+import AlertDialog from "./AlertDialog";
 
 //IMAGE
 import lock from '../images/lock.svg';
@@ -60,8 +61,18 @@ const ResetPassword = () => {
     
     const [password, setPassword] = useState('');
     const [passworderror, setPassworderror] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [transition, setTransition] = useState(undefined);
+
+	//Snackbar
+	const [open, setOpen] = useState(false);
+	const [transition, setTransition] = useState(undefined);
+
+	//AlertDialog
+	const [openState, setOpenState] = useState(false);
+	const openDialog = () => setOpenState(true);
+	const closeDialog = () => { 
+		setOpenState(false); 
+		history.push('/login');
+	}
 
     const handleChange = (e) => {
         setPassworderror(false)
@@ -96,8 +107,7 @@ const ResetPassword = () => {
                 .then((res) => {
                     console.log(res);
                     console.log(res.data);
-                    history.push('/login');
-
+                    openDialog();
                 })
                 .catch(err => { 
 					console.log(err)
@@ -163,6 +173,11 @@ const ResetPassword = () => {
                         key={transition ? transition.name : ''}
                         className={classes.snackbar}
                     />
+                    <AlertDialog
+						open={openState}
+						closeDialog={closeDialog}
+						title="Password Changed Successfully"
+						description='Your password has been reset successfully.\nPlease proceed to login' />
                 </Grid>
             </Grid>
         </Container>

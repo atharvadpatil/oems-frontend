@@ -72,6 +72,8 @@ export default function SignIn() {
     const [passerror, setPasserror] = useState(false);
     const [open, setOpen] = useState(false);
     const [transition, setTransition] = useState(undefined);
+    
+    const [message, setMessage] = useState("Invalid Login Credentials! Please Try Again");
 
     const handleChange = (e) => {
 
@@ -132,6 +134,11 @@ export default function SignIn() {
                 .catch(err => { 
 					console.log(err)
 					if (err.response.status === 401 && err.response.data.detail === "Invalid credentials, try again") {
+						setTransition(() => TransitionLeft);
+						setOpen(true);
+					}
+					else if (err.response.status === 401 && err.response.data.detail === "Email is not verified") {
+                        setMessage("Please validate your email! Check your inbox")
 						setTransition(() => TransitionLeft);
 						setOpen(true);
 					}
@@ -213,7 +220,7 @@ export default function SignIn() {
                         open={open}
                         onClose={handleClose}
                         TransitionComponent={transition}
-                        message="Invalid Login Credentials! Please Try Again"
+                        message={message}
                         key={transition ? transition.name : ''}
                         className={classes.snackbar}
                     />
