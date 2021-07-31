@@ -131,7 +131,7 @@ export default function SignIn() {
                     localStorage.setItem('access_token', res.data.user_data.tokens.access);
                     localStorage.setItem('refresh_token', res.data.user_data.tokens.refresh);
 
-                    axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
+                    axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
 
 
                     setUser({
@@ -140,7 +140,7 @@ export default function SignIn() {
                         id: res.data.teacher_id || res.data.student_id,
                         user_id: res.data.user_id,
                         user_type: res.data.user_type,
-                        profile_picture: res.data.profile_picture,
+                        profile_picture: `http://127.0.0.1:8000${res.data.profile_picture}`,
                     });
 
                     setLogin(true);
