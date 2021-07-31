@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
 	timeout: 5000,
 	headers: {
 		Authorization: localStorage.getItem('access_token')
-			? 'JWT ' + localStorage.getItem('access_token')
+			? `Bearer ${localStorage.getItem('access_token')}`
 			: null,
 		'Content-Type': 'application/json',
 		accept: 'application/json',
@@ -32,9 +32,9 @@ axiosInstance.interceptors.response.use(
 
 		if (
 			error.response.status === 401 &&
-			originalRequest.url === baseURL + 'token/refresh/'
+			originalRequest.url === baseURL + 'auth/token/refresh'
 		) {
-			window.location.href = '/login/';
+			window.location.href = '/login';
 			return Promise.reject(error);
 		}
 
@@ -54,15 +54,15 @@ axiosInstance.interceptors.response.use(
 
 				if (tokenParts.exp > now) {
 					return axiosInstance
-						.post('/token/refresh/', { refresh: refreshToken })
+						.post('auth/token/refresh', { refresh: refreshToken })
 						.then((response) => {
 							localStorage.setItem('access_token', response.data.access);
 							localStorage.setItem('refresh_token', response.data.refresh);
 
 							axiosInstance.defaults.headers['Authorization'] =
-								'JWT ' + response.data.access;
+								'Bearer ' + response.data.access;
 							originalRequest.headers['Authorization'] =
-								'JWT ' + response.data.access;
+								'Bearer ' + response.data.access;
 
 							return axiosInstance(originalRequest);
 						})
@@ -71,11 +71,11 @@ axiosInstance.interceptors.response.use(
 						});
 				} else {
 					console.log('Refresh token is expired', tokenParts.exp, now);
-					window.location.href = '/login/';
+					window.location.href = '/login';
 				}
 			} else {
 				console.log('Refresh token not available.');
-				window.location.href = '/login/';
+				window.location.href = '/login';
 			}
 		}
 
