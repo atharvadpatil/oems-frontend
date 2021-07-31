@@ -8,10 +8,11 @@ import ForgotPassword from './components/forgotpassword';
 import ResetPassword from './components/resetpassword';
 import NotFound from './components/NotFound';
 import Navbar from './components/navbar';
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <div className="App">
+    <RecoilRoot>
       <CssBaseline />
       <Navbar />
       <Switch>
@@ -23,7 +24,7 @@ function App() {
         <Route path = "/reset-password%3ftoken_valid%3dTrue%26message%3dCredentials_Valid/:uidb64/:token" component = {ResetPassword} />
         <Route component = {NotFound} />
       </Switch>
-    </div>
+    </RecoilRoot>
   );
 }
 
