@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useHistory } from 'react-router-dom';
 import Copyright from './copyright'
+import { useSetRecoilState } from 'recoil'
+import { userData, isLoggedIn } from '../atoms';
 
 //IMAGE
 import bg from '../images/bg.svg';
@@ -60,6 +62,9 @@ function TransitionLeft(props) {
 }
 
 export default function SignIn() {
+
+    const setUser = useSetRecoilState(userData);
+    const setLogin = useSetRecoilState(isLoggedIn);
 
     const history = useHistory();
     const initialFormData = Object.freeze({
@@ -127,6 +132,18 @@ export default function SignIn() {
                     localStorage.setItem('refresh_token', res.data.user_data.tokens.refresh);
 
                     axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
+
+
+                    setUser({
+                        name: res.data.teacher_name || res.data.student_name,
+                        email: res.data.teacher_email || res.data.student_email,
+                        id: res.data.teacher_id || res.data.student_id,
+                        user_id: res.data.user_id,
+                        user_type: res.data.user_type,
+                        profile_picture: res.data.profile_picture,
+                    });
+
+                    setLogin(true);
 
                     history.push('/dashboard');
 
