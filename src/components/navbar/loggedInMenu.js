@@ -12,6 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import ChangePassword from './changePassword';
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -30,6 +31,13 @@ export default function LMenu() {
     const [user, setUser] = useRecoilState(userData);
     const setLogin = useSetRecoilState(isLoggedIn);
 
+    //Change Password Dialog
+    const [openState, setOpenState] = useState(false);
+    const openDialog = () => setOpenState(true);
+    const closeDialog = () => {
+        setOpenState(false);
+    }
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -43,16 +51,16 @@ export default function LMenu() {
         e.preventDefault();
         let form_data = new FormData();
         form_data.append('avatar', e.target.files[0]);
-        axiosInstance.patch(`auth/change-avatar`, form_data )
-        .then(res => { 
-            console.log(res);
-            setUser({
-                ...user,
-                profile_picture: `http://127.0.0.1:8000${res.data.profile_picture}`,
-            });
-            handleClose();
-        })
-        .catch(err => console.log(err));
+        axiosInstance.patch(`auth/change-avatar`, form_data)
+            .then(res => {
+                console.log(res);
+                setUser({
+                    ...user,
+                    profile_picture: `http://127.0.0.1:8000${res.data.profile_picture}`,
+                });
+                handleClose();
+            })
+            .catch(err => console.log(err));
     };
 
 
@@ -109,9 +117,14 @@ export default function LMenu() {
                         Update Profile
                     </label>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>Change Password</MenuItem>
+                <MenuItem onClick={openDialog}>Change Password</MenuItem>
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
+            <ChangePassword
+                open={openState}
+                closeDialog={closeDialog}
+                title="Change Password"
+            />
         </>
     );
 }

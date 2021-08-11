@@ -68,6 +68,7 @@ axiosInstance.interceptors.response.use(
 						})
 						.catch((err) => {
 							console.log(err);
+                            return Promise.reject(err);
 						});
 				} else {
 					console.log('Refresh token is expired', tokenParts.exp, now);
