@@ -149,11 +149,11 @@ export default function CreateClass(props) {
                             disableToolbar
                             required
                             fullWidth
-                            variant="inline"
+                            // variant="inline"
                             format="dd/MM/yyyy"
                             margin="normal"
                             id="date-picker-inline"
-                            label="Date picker inline"
+                            label="Joining Code Expiry Date"
                             value={selectedDate}
                             onChange={handleDateChange}
                             KeyboardButtonProps={{
