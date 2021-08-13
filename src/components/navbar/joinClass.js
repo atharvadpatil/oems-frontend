@@ -77,6 +77,7 @@ export default function JoinClass(props) {
                 .then((res) => {
                     console.log(res);
                     props.closeDialog();
+                    window.location.reload();
                 })
                 .catch(err => {
                     console.log(err)

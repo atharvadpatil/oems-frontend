@@ -154,7 +154,7 @@ export default function LMenu() {
             <JoinClass
                 open={openJoin}
                 closeDialog={closeJoin}
-                title="JoinClass"
+                title="Join Class"
             />
         </>
     );

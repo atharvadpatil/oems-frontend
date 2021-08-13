@@ -62,6 +62,7 @@ export default function CreateClass(props) {
     const openDialog = () => setOpenState(true);
     const closeDialog = () => {
         setOpenState(false);
+        window.location.reload();
     }
 
     //Snackbar
@@ -100,8 +101,8 @@ export default function CreateClass(props) {
                     console.log(res);
                     let msg = "Joining Code: " + (res.data.joining_code).toString()
                     setMessage(msg);
-                    openDialog();
                     props.closeDialog();
+                    openDialog();
                 })
                 .catch(err => {
                     console.log(err)
