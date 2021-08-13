@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { userData, isLoggedIn } from '../../atoms';
 import axiosInstance from '../../axios';
+import ChangePassword from './changePassword';
+import CreateClass from './createClass';
+import JoinClass from './joinClass';
 
 //MUI
 import Button from '@material-ui/core/Button';
@@ -12,7 +15,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import ChangePassword from './changePassword';
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -36,6 +38,20 @@ export default function LMenu() {
     const openDialog = () => setOpenState(true);
     const closeDialog = () => {
         setOpenState(false);
+    }
+
+    //Create Class Dialog
+    const [openCreate, setOpenCreate] = useState(false);
+    const openCreateDialog = () => setOpenCreate(true);
+    const closeCreate = () => {
+        setOpenCreate(false);
+    }
+
+    //Join class Dialog
+    const [openJoin, setOpenJoin] = useState(false);
+    const openJoinDialog = () => setOpenJoin(true);
+    const closeJoin = () => {
+        setOpenJoin(false);
     }
 
 
@@ -85,11 +101,12 @@ export default function LMenu() {
     return (
         <>
             <Box mr={2}>
-                {user.user_type === "teacher" ? <Button variant="outlined" style={{ textTransform: 'capitalize' }} color="inherit" href="/">
-                    Create Class
-                </Button>
+                {user.user_type === "teacher" ?
+                    <Button variant="outlined" onClick={openCreateDialog} style={{ textTransform: 'capitalize' }} color="inherit">
+                        Create Class
+                    </Button>
                     :
-                    <Button variant="outlined" style={{ textTransform: 'capitalize' }} color="inherit" href="/">
+                    <Button variant="outlined" onClick={openJoinDialog} style={{ textTransform: 'capitalize' }} color="inherit">
                         Join Class
                     </Button>
                 }
@@ -120,10 +137,24 @@ export default function LMenu() {
                 <MenuItem onClick={openDialog}>Change Password</MenuItem>
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
+
+            {/* Dialogs */}
             <ChangePassword
                 open={openState}
                 closeDialog={closeDialog}
                 title="Change Password"
+            />
+
+            <CreateClass
+                open={openCreate}
+                closeDialog={closeCreate}
+                title="Create Class"
+            />
+            
+            <JoinClass
+                open={openJoin}
+                closeDialog={closeJoin}
+                title="JoinClass"
             />
         </>
     );
