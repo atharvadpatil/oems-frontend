@@ -30,3 +30,11 @@ export const isLoggedIn = atom({
         localStorageEffect('isLoggedIn'),
     ]
 });
+
+export const currentClassId = atom({
+    key: "currentClassId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('currentClassId'),
+    ]
+});

@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './components/home';
 import Login from './components/login';
 import Dashboard from './components/dashboard';
+import Klass from './components/klass/klass'
 import Register from './components/register';
 import ForgotPassword from './components/forgotpassword';
 import ResetPassword from './components/resetpassword';
@@ -18,6 +19,7 @@ function App() {
             <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/dashboard" component={Dashboard} exact />
+                <Route path="/klass/:classId" component={Klass} exact />
                 <Route path="/register" component={Register} exact />
                 <Route path="/login" component={Login} exact />
                 <Route path="/forgot-password" component={ForgotPassword} exact />

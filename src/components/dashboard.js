@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil';
 import { userData } from '../atoms';
+import { useHistory } from 'react-router-dom';
 import axiosInstance from '../axios';
 
 //MUI 
@@ -17,8 +18,14 @@ import { CardMedia } from '@material-ui/core';
 
 function ClassCard({ klass, handleDelete }) {
 
+    const history = useHistory();
+
     function getRandomImage() {
         return `https://source.unsplash.com/featured/?nature/${Math.floor(Math.random() * 100)}`
+    }
+
+    const classClick = (class_id) => {
+        history.push(`/klass/${class_id}`);
     }
 
     return (
@@ -33,7 +40,7 @@ function ClassCard({ klass, handleDelete }) {
                     title={klass.class_name}
                     subheader={klass.teacher_name}
                 />
-                <CardActionArea>
+                <CardActionArea onClick={() => classClick(klass.class_id)}>
                     <CardMedia
                         component="img"
                         alt="Study"
