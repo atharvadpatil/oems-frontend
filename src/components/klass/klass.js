@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 
@@ -31,7 +30,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    <Box>{children}</Box>
                 </Box>
             )}
         </div>
@@ -89,19 +88,19 @@ export default function Klass() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0} style={{ backgroundColor: "#e8eaf6" }} >
-                <Chat />
+                <Chat classId={classId}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <SharedFolder/>
+                <SharedFolder />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <Quiz/>
+                <Quiz />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <Assignment/>
+                <Assignment />
             </TabPanel>
             <TabPanel value={value} index={4}>
-                <ClassMembers/>
+                <ClassMembers />
             </TabPanel>
         </div>
     );

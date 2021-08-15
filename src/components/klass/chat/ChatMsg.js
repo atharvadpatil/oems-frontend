@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import cx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import withStyles from '@material-ui/core/styles/withStyles';
 import defaultChatMsgStyles from './defaultChatMsg.styles';
@@ -54,7 +53,7 @@ const ChatMsg = withStyles(defaultChatMsgStyles, { name: 'ChatMsg' })(props => {
                     return (
                         // eslint-disable-next-line react/no-array-index-key
                         <div key={msg.id || i} className={classes[`${side}Row`]}>
-                            <Typography
+                            <Box
                                 align={'left'}
                                 {...TypographyProps}
                                 className={cx(
@@ -72,7 +71,7 @@ const ChatMsg = withStyles(defaultChatMsgStyles, { name: 'ChatMsg' })(props => {
                                 <Box fontWeight="fontWeightLight" mt={0}>
                                     {timestamp}
                                 </Box>
-                            </Typography>
+                            </Box>
                         </div>
                     );
                 })}
