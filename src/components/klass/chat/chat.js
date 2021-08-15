@@ -1,5 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ChatMsg from './ChatMsg';
+import axiosInstance from '../../../axios';
+import { useRecoilValue } from 'recoil';
+import { userData } from '../../../atoms';
+import { format } from 'date-fns'
 
 //MUI
 import Grid from '@material-ui/core/Grid';
@@ -21,9 +25,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Chat = () => {
+const Chat = ({ classId }) => {
 
     const classes = useStyles();
+    const user = useRecoilValue(userData);
+    const [messages, setMessages] = useState([]);
+    const [text, setText] = useState('');
+    const [scroll, setScroll] = useState(0);
+    const [texterror, setTexterror] = useState(false);
 
     const messagesEndRef = useRef(null)
     const chat = useRef(null)
@@ -40,20 +49,92 @@ const Chat = () => {
         window.scrollTo(0, 0)
     }
 
+    function getMessages() {
+        axiosInstance
+            .get(`chat/message/${classId}`)
+            .then((res) => {
+                console.log(res);
+                setMessages(res.data)
+                if (res.data.length > 0) {
+                    let latest_msg_id = res.data[res.data.length - 1].id
+                    if (scroll !== latest_msg_id) {
+                        setScroll(latest_msg_id);
+                    }
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+
     useEffect(() => {
         scrollToBottom()
-    }, []);
+    }, [scroll]);
+
+    useEffect(() => {
+        getMessages()
+        const interval = setInterval(() => {
+            getMessages()
+        }, 3000)
+
+        return () => clearInterval(interval)
+        // eslint-disable-next-line
+    }, [])
+
+    const handleSubmit = (e) => {
+
+        let submit = true
+        setTexterror(false)
+
+        if (text === "") {
+            setTexterror(true)
+            submit = false
+            console.log(submit)
+        }
+
+        if (submit) {
+            axiosInstance
+                .post(`chat/message`, {
+                    "class_id": classId,
+                    "message": text,
+                    "sent_by": user.name,
+                    "user_id": user.user_id,
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log({ err })
+                });
+        }
+    };
 
     return (
         <div ref={chat} >
-            <ChatMsg
-                avatar={''}
-                sentBy={'Tony Stark'.toUpperCase().toUpperCase()}
-                messages={[
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, praesentium?',
-                ]}
-                timestamp={'Thursday, 9:30 PM'}
-            />
+            {messages.length > 0 && messages.map(m => (
+                <div key={m.id}>
+                    {m.user_id === user.user_id ?
+                        <ChatMsg
+                            sentBy={m.sent_by.toUpperCase()}
+                            side={'right'}
+                            messages={[
+                                m.message,
+                            ]}
+                            timestamp={format(new Date(m.timestamp), "dd-MM-yyyy 'at' HH:mm")}
+                        />
+                        :
+                        <ChatMsg
+                            avatar={`http://127.0.0.1:8000${m.profile_picture}`}
+                            sentBy={m.sent_by.toUpperCase()}
+                            messages={[
+                                m.message,
+                            ]}
+                            timestamp={m.timestamp.substring(0, 10).concat(' at ', m.timestamp.substring(11, 16))}
+                        />
+                    }
+                </div>
+            ))}
 
             <Divider style={{ marginTop: "20px" }} />
 
@@ -69,12 +150,12 @@ const Chat = () => {
                                     name="message"
                                     size="small"
                                     fullWidth
-                                    // onChange={handleChange}
-                                    // error={nameerror}
+                                    onChange={(e) => { setText(e.target.value); setTexterror(false); }}
+                                    error={texterror}
                                 />
                             </Grid>
                             <Grid item style={{ paddingLeft: 0 }}>
-                                <IconButton style={{ margin: 0, padding: 0 }}>
+                                <IconButton type="submit" onClick={handleSubmit} style={{ marginBottom: 3, padding: 0 }}>
                                     <SendIcon color="primary" fontSize="large" />
                                 </IconButton>
                             </Grid>
@@ -84,8 +165,9 @@ const Chat = () => {
                 <Box style={{ display: 'flex', justifyContent: 'center' }} >
                     <Chip label="Scroll to Top" color="primary" component="a" clickable onClick={scrollToTop} style={{ marginTop: "10px" }} />
                 </Box>
-                <div ref={messagesEndRef}/>
+                <div ref={messagesEndRef} />
             </Box>
+
         </div>
     );
 }
