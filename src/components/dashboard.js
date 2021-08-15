@@ -73,6 +73,7 @@ export default function Dashboard() {
             .catch(err => {
                 console.log(err)
             });
+            // eslint-disable-next-line
     }, [])
 
     const handleDelete = (class_id) => {
