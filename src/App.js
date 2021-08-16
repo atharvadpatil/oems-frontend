@@ -22,23 +22,15 @@ function App() {
             <Navbar />
             <Switch>
                 <Route path="/" component={Home} exact />
-                {log ?
-                    <>
-                        <Route path="/dashboard" component={Dashboard} exact />
-                        <Route path="/klass/:classId" component={Klass} exact />
-                        <Route path="/register" component={Dashboard} exact />
-                        <Route path="/login" component={Dashboard} exact />
-                    </>
-                    :
-                    <>
-                        <Route path="/dashboard" component={Login} exact />
-                        <Route path="/klass/:classId" component={Login} exact />
-                        <Route path="/register" component={Register} exact />
-                        <Route path="/login" component={Login} exact />
-                    </>
-                }
-                <Route path="/forgot-password" component={ForgotPassword} exact />
-                <Route path="/reset-password%3ftoken_valid%3dTrue%26message%3dCredentials_Valid/:uidb64/:token" component={ResetPassword} />
+
+                <Route path="/dashboard" component={log ? Dashboard : Login} exact />
+                <Route path="/klass/:classId" component={log ? Klass : Login} exact />
+
+                <Route path="/register" component={log ? Dashboard : Register} exact />
+                <Route path="/login" component={log ? Dashboard : Login} exact />
+                <Route path="/forgot-password" component={log ? Dashboard : ForgotPassword} exact />
+                <Route path="/reset-password%3ftoken_valid%3dTrue%26message%3dCredentials_Valid/:uidb64/:token" component={log ? Dashboard : ResetPassword} />
+
                 <Route component={NotFound} />
             </Switch>
         </>
