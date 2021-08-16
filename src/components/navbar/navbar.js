@@ -34,7 +34,7 @@ export default function Navbar() {
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="logo" href="/">
+					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="logo" href="/home">
 						<MenuBookIcon style={{ fontSize: 30 }} />
 					</IconButton>
 					<Typography variant="h6" className={classes.title}>

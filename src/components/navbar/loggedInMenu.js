@@ -121,6 +121,7 @@ export default function LMenu() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
+                <MenuItem onClick={() => history.push('/dashboard')}>Dashboard</MenuItem>
                 <MenuItem>
                     <input
                         accept="image/*"
