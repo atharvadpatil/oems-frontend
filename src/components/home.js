@@ -1,13 +1,3 @@
-import { Container, Divider, Grid } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import YouTubeIcon from '@material-ui/icons/YouTube';
 import bannerlogo from '../images/home/bannerlogo.png';
 import study from '../images/home/study.jpg'
 import study2 from '../images/home/study2.jpg'
@@ -16,51 +6,62 @@ import folder from '../images/home/folder.svg'
 import quiz from '../images/home/quiz.svg'
 import assignment from '../images/home/assignment.svg'
 
+//MUI
+import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import Link from '@material-ui/core/Link';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+
 
 
 const useStyles = makeStyles((theme) => ({
-    con1 :{
-        textAlign : "center",
-        marginTop: "120px"
+    con1: {
+        textAlign: "center",
     },
-    con2 :{
-        paddingLeft:"24px",
-        paddingRight:"24px",
-        textAlign: 'center'
+    con2: {
+        textAlign: 'center',
     },
-    con3:{
+    con3: {
         padding: theme.spacing(1),
         [theme.breakpoints.down('xs')]: {
-            marginTop:24,
-        marginLeft: 10,
-        marginRight:10
+            marginTop: 24,
+            marginLeft: 10,
+            marginRight: 10
         },
         [theme.breakpoints.up('sm')]: {
-            marginTop:60,
-        marginLeft: 60,
-        marginRight:60
+            marginTop: 60,
+            marginLeft: 200,
+            marginRight: 200
         },
         [theme.breakpoints.up('md')]: {
-        marginTop:120,
-        marginLeft: 150,
-        marginRight:150
-        }, 
+            marginTop: 60,
+            marginLeft: 230,
+            marginRight: 230
+        },
     },
-    con4 :{
-        paddingLeft:"24px",
-        paddingRight:"24px",
+    con4: {
+        paddingLeft: "24px",
+        paddingRight: "24px",
         textAlign: 'left',
         width: '100%',
     },
-    img:{
-        border: 0,
-        display: 'block',
-        margin: 0,
-        width: '100%',
-    },
-    changefontSize:{
+    changefontSize: {
         [theme.breakpoints.down('xs')]: {
-            fontSize:24
+            fontSize: 24
         },
         [theme.breakpoints.up('sm')]: {
             fontSize: 32
@@ -69,9 +70,9 @@ const useStyles = makeStyles((theme) => ({
             fontSize: 36
         },
     },
-    changefontSize1:{
+    changefontSize1: {
         [theme.breakpoints.down('xs')]: {
-            fontSize:36
+            fontSize: 36
         },
         [theme.breakpoints.up('sm')]: {
             fontSize: 40
@@ -80,59 +81,59 @@ const useStyles = makeStyles((theme) => ({
             fontSize: 45
         },
     }
-  }));
+}));
 
 const infoarray1 = [
     {
         'logo': 'https://edu.google.com/assets/icons/pages/main/classroom/all-in-one-place.svg',
         'title': "All-in-one place",
-        'body' : 'Bring all your learning tools together and manage multiple classes in one central destination.'
+        'body': 'Bring all your learning tools together and manage multiple classes in one central destination.'
     },
     {
         'logo': 'https://edu.google.com/assets/icons/pages/main/classroom/easy-to-use.svg',
         'title': "Easy to use",
-        'body' : 'Anyone in your school community can get up and running with Classroom in minutes.'
+        'body': 'OEMS is user friendly, anyone in your school, college or community can get up and running with OEMS in minutes.'
     },
     {
         'logo': 'https://edu.google.com/assets/icons/pages/main/classroom/built-for-collaboration.svg',
         'title': "Built for collaboration",
-        'body' : 'Work simultaneously in the same document with the whole class or connect face-to-face with Google Meet.'
+        'body': 'Share your work and collaborate  with the whole class using our built in shared folder and chat functionality.'
     },
     {
         'logo': 'https://edu.google.com/assets/icons/pages/main/classroom/access-from-anywhere.svg',
         'title': "Access from anywhere",
-        'body' : 'Empower teaching and learning from anywhere, on any device, and give your class more flexibility and mobility.'
+        'body': 'Empower teaching and learning from anywhere, on any device, and give your class more flexibility and mobility.'
     }
 ]
 
-const infoarray2=[
+const infoarray2 = [
     {
         'id': 1,
-        'head':'CHAT',
-        'title': 'Save time and simplify everyday tasks',
+        'head': 'CHAT',
+        'title': 'Chat with your classmates',
         'logo': chat,
-        'body':'Switch from class to assignment to student in just a few clicks.Keep grading consistent and transparent with rubrics displayed alongside student work'
+        'body': 'Stay connected and collaborate with class members wherever you are. Interact with your classmates in realtime using our in-built chat functionality. Ask doubts, discuss concepts and much more...'
     },
     {
         'id': 2,
-        'head':'QUIZ',
-        'title': 'Enhance student learning experiences',
+        'head': 'QUIZ',
+        'title': 'Test, grade and schedule quizzes',
         'logo': quiz,
-        'body':'Keep everyone on track with student to-do and teacher to-review pages, and due dates that automatically appear on student calendars when classwork is created.Allow students to snap and submit a picture of their paper homework quickly and easily with improved image capturing'
+        'body': 'Teachers can quickly assess students by setting quizzes in an MCQ format. Quizzes are automatically graded, just specify correct answers, points, and you are good to go. Monitor student submissions and responses from your quiz dashboard.'
     },
     {
         'id': 3,
-        'head':'ASSIGNMENT',
-        'title': 'Operate with ease using tools for visibility, insights, and control',
+        'head': 'ASSIGNMENT',
+        'title': 'Test concepts using assignments',
         'logo': assignment,
-        'body':'Access Classroom audit logs right from the Admin console to investigate events in depth and pinpoint performance or security issues'
+        'body': 'Assign assignments to help students apply concepts. Access grading features from anywhere, even on mobile. Track student submission progress and manage their scores in your assignment dashboard.'
     },
     {
         'id': 4,
-        'head':'FOLDER',
-        'title': 'Stay secure and compliant',
+        'head': 'SHARED FOLDER',
+        'title': 'Share study material on the go',
         'logo': folder,
-        'body':'Ensure only account holders with a unique sign-in can access a Google for Education domain, plus restrict all class activity to class members only'
+        'body': 'Use our built-in shared folder to collaborate and share sheets, notes, documents and other study material with your class to increase productivity. All file types are supported.'
     }
 ]
 
@@ -141,124 +142,56 @@ const Home = () => {
     const classes = useStyles();
 
     const dir = useMediaQuery('(min-width:960px)') ? 'row' : 'column-reverse'
+    const height = useMediaQuery('(min-width:960px)') ? 400 : 200
 
-    return ( 
+    return (
         <Container>
             <div className={classes.con1}>
-                <img src={bannerlogo}></img>
-                <br></br>
-                <Typography variant='h3' className={classes.changefontSize1}>
-                    Where teaching and learning become
-                </Typography>
-                <Typography variant='h3'className={classes.changefontSize1}>
-                    easy
-                </Typography>
-                <br></br>
-                <Typography variant='body1'>
-                    Online Education Management System is all-in-one place for teaching and learning. 
-                    Our easy-to-use and secure
-                </Typography>
-                <Typography variant='body1'>
-                    tool helps educators manage, measure, and enrich learning experiences.
-                </Typography>
-                <br></br>
-                <Typography variant='h6'>
-                    This project build by <a href='https://github.com/VirajPatidar'>Viraj Patidar</a> and <a href='https://github.com/atharvadpatil'>Atharva Patil</a>
-                </Typography>
-                <br></br>
-                <Button variant="outlined" color="primary" href='https://github.com/'>Source Code</Button>
-            </div>
-            <Box justifyContent="center" mt={12} p={1}>
-                <Grid container>
-                    {infoarray1.map((info)=>(
-                        <Grid item key={info.logo} xs={12} sm={6} md={3} className={classes.con2}>
-                            <img src={info.logo}></img>
-                            <Typography variant='h6'>
-                                <Box fontWeight="fontWeightRegular">
-                                {info.title}
-                                </Box>
-                            </Typography>
-                            <br></br>
-                            <Typography>
-                                <Box fontWeight="fontWeightLight">
-                                    {info.body}
-                                </Box> 
-                            </Typography>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
-            <div className={classes.con3}>
-                <img className={classes.img} src={study}></img>
-            </div>
-            <Box p={1} mt={6}>
-                {infoarray2.map((info)=>
-                info.id % 2 !== 0 
-                ? 
-                (
-                    <Box pt={12} pb={12} style={{backgroundColor:"#e8eaf6"}}>
-                        <Grid container key={info.id}>
-                            <Grid item sm={12} md={6} style={{paddingLeft: "48px"}}>
-                                <img src={info.logo} width="100%" ></img>
-                            </Grid>
-                            <Grid item sm={12} md={6} className={classes.con4} >
-                                <Typography>
-                                    {info.head}
-                                </Typography>
-                                <br></br>
-                                <Typography variant='h4' className={classes.changefontSize}>
-                                        <Box fontWeight="fontWeightRegular">
-                                            {info.title}
-                                        </Box>
-                                    </Typography>
-                                    <br></br>
-                                    <Typography>
-                                        <Box fontWeight="fontWeightLight">
-                                            {info.body}
-                                        </Box> 
-                                    </Typography>
-                            </Grid>
-                        </Grid>
+                <Box mt={4} pt={8} pb={8} style={{ backgroundColor: "#e1f5fe", borderRadius: "20px" }}>
+                    <Box display="flex" justifyContent="center">
+                        <img src={bannerlogo} alt="logo" />
+                        <Typography variant='h3' className={classes.changefontSize1}>
+                            OEMS
+                        </Typography>
                     </Box>
-                )
-                :
-                (
-                    <Box pt={12} pb={12}>
-                        <Grid container key={info.id} direction={dir}>
-                            <Grid item sm={12} md={6} className={classes.con4}>
-                                <Typography>
-                                    {info.head}
-                                </Typography>
-                                <br></br>
-                                <Typography variant='h4' className={classes.changefontSize}>
-                                        <Box fontWeight="fontWeightRegular">
-                                            {info.title}
-                                        </Box>
-                                    </Typography>
-                                    <br></br>
-                                    <Typography>
-                                        <Box fontWeight="fontWeightLight">
-                                            {info.body}
-                                        </Box> 
-                                    </Typography>
-                            </Grid>
-                            <Grid item sm={12} md={6} style={{paddingRight: "48px"}}>
-                                <img src={info.logo} width="100%" ></img>
-                            </Grid>
-                        </Grid>
+                    <Box mt={3}>
+                        <Typography variant='h2' className={classes.changefontSize1}>
+                            Where Teaching and Learning come Together
+                        </Typography>
                     </Box>
-                )
-                )}
-                
-            </Box>
+                    <Box mt={4}>
+                        <Typography variant='body1'>
+                            <strong>Online Education Management System</strong> is the all-in-one place for teaching and learning. <br />
+                            Our easy-to-use and secure tools helps educators manage, measure, and enrich learning experiences.
+                        </Typography>
+                    </Box>
+
+                    <Box mt={8} fontSize="h6.fontSize" fontWeight={400} fontFamily="Monospace">
+                        This project is built by: <br /> <Link href="https://github.com/VirajPatidar" color="inherit" target="_blank" rel="noopener">Viraj Patidar</Link> & <Link href="https://github.com/atharvadpatil" color="inherit" target="_blank" rel="noopener">Atharva Patil</Link>
+                    </Box>
+                    <Box mt={2}>
+                        <Link href="https://github.com/" color="inherit" target="_blank" rel="noopener">
+                            <Button
+                                variant="outlined"
+                                display="inline"
+                                color="default"
+                                startIcon={<GitHubIcon />}
+                            >
+                                Source Code
+                            </Button>
+                        </Link>
+                    </Box>
+                </Box>
+            </div>
+
             <Box className={classes.con3}>
-                <Typography variant='h4' className={classes.changefontSize} >
+                <Typography variant='h4' className={classes.changefontSize} component="div">
                     <Box fontWeight={350}>
                         "The function of education is to teach one to think intensively and to think critically. Intelligence plus character – that is the goal of true education"
                     </Box>
                 </Typography>
                 <br></br>
-                <Typography variant="h6">
+                <Typography variant="h6" component="div">
                     <Box fontWeight={500}>
                         -   Martin Luther King
                     </Box>
@@ -267,63 +200,52 @@ const Home = () => {
             <Box mt={12} p={1}>
                 <Grid container alignItems="center">
                     <Grid item sm={12} md={6}>
-                        <img src={study2} width="100%"></img>
+                        <img src={study2} width="100%" alt="study_image" />
                     </Grid>
                     <Grid item sm={12} md={6}>
-                        <Typography variant='h3' className={classes.changefontSize}>
+                        <Typography variant='h3' className={classes.changefontSize} component="div">
                             <Box pl={3} pt={4} fontWeight={350}>
-                                Use OEMS as your daily learning platform and achieve success
+                                Create your account to use OEMS as your daily learning platform
                             </Box>
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant='body1' component="div">
                             <Box pl={3} pt={3} fontWeight={350}>
-                                To explore more features of OEMS please create a account
+                                To explore more features of OEMS, create an account to get started.
                             </Box>
                         </Typography>
                         <Box pl={3} pt={3}>
-                            <Button pl={3} pt={3} variant="outlined" color="primary">SignUp</Button>
+                            <Button pl={3} pt={3} variant="outlined" color="primary" href="/register">Sign Up</Button>
                         </Box>
-                        
+
                     </Grid>
                 </Grid>
             </Box>
-            <Box mt={6} p={1}>
-               <Grid container justifyContent="center">
-                   <Grid item style={{display: "flex"}}>
-                       <Box pr={3} pt={4}>
+            <Box mt={6} mb={6} p={1}>
+                <Grid container justify="center">
+                    <Grid item style={{ display: "flex", paddingBottom: "10px" }}>
+                        <Box pr={3} pt={4}>
                             <Typography>
-                                Follow us
+                                Follow us on:
                             </Typography>
                         </Box>
                         <Box pt={4} pr={2}>
-                            <FacebookIcon onClick={() =>  window.location.href='https://www.facebook.com/'}/>
+                            <FacebookIcon onClick={() => window.location.href = 'https://www.facebook.com/'} />
                         </Box>
                         <Box pt={4} pr={2}>
-                            <InstagramIcon onClick={() =>  window.location.href='https://www.instagram.com/'} />
+                            <InstagramIcon onClick={() => window.location.href = 'https://www.instagram.com/'} />
                         </Box>
                         <Box pt={4} pr={2}>
-                            <TwitterIcon onClick={() =>  window.location.href='https://twitter.com/'} />
+                            <TwitterIcon onClick={() => window.location.href = 'https://twitter.com/'} />
                         </Box>
                         <Box pt={4} pr={2}>
-                            <YouTubeIcon onClick={() =>  window.location.href='https://www.youtube.com/'} />
+                            <YouTubeIcon onClick={() => window.location.href = 'https://www.youtube.com/'} />
                         </Box>
-                   </Grid>
-                </Grid> 
+                    </Grid>
+                </Grid>
+                <Divider />
             </Box>
-            <Divider></Divider>
-            {/* <Box style={{display: "flex"}} mt={5} mb={5}>
-                <Typography varient="subtitle1" className={classes.con2}>
-                    OEMS
-                </Typography>
-                <Typography className={classes.con2}>
-                    Privacy
-                </Typography>
-                <Typography className={classes.con2}>
-                    Terms
-                </Typography>
-            </Box> */}
         </Container>
-     );
+    );
 }
- 
+
 export default Home;
