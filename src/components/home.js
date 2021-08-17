@@ -183,7 +183,95 @@ const Home = () => {
                     </Box>
                 </Box>
             </div>
+            <Box mt={6} p={1}>
+                <Grid container spacing={8}>
+                    {infoarray1.map((info) => (
+                        <Grid item key={info.title} xs={12} sm={6} md={3} className={classes.con2}>
+                            <Paper elevation={3} style={{ padding: "12px", minHeight: "280px" }}>
+                                <img src={info.logo} alt={info.title} />
+                                <Box pt={1} fontSize="h6.fontSize" fontWeight="fontWeightRegular">
+                                    {info.title}
+                                </Box>
+                                <br></br>
+                                <Box fontSize={16} fontWeight="fontWeightLight">
+                                    {info.body}
+                                </Box>
+                            </Paper>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+            <Box mt={6} ml={1} mr={1}>
+                <Card>
+                    <CardMedia
+                        component="img"
+                        alt="study_image"
+                        height="400"
+                        image={study}
+                        title="study_image"
+                    />
+                    <CardContent>
+                        <Typography variant="subtitle1" component="p">
+                            With OEMS, teachers can easily setup a virtual classroom to engross their students in a smooth learning experience
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Box>
+            <Box p={1} mt={6}>
+                {infoarray2.map((info) =>
+                    info.id % 2 !== 0 ?
+                        (
+                            <Box pt={6} pb={6} style={{ backgroundColor: "#e8eaf6" }} key={info.id}>
+                                <Grid container alignItems="center">
+                                    <Grid item sm={12} md={6} style={{ paddingLeft: "48px", paddingRight: "48px" }}>
+                                        <img src={info.logo} width="100%" style={{ height: height }} alt={info.head} />
+                                    </Grid>
+                                    <Grid item sm={12} md={6} className={classes.con4} >
+                                        <Box mt={3}>
+                                            <Typography style={{ fontSize: "20px" }}>
+                                                {info.head}
+                                            </Typography>
+                                        </Box>
+                                        <Box mt={3}>
+                                            <Typography variant='h4' className={classes.changefontSize}>
+                                                {info.title}
+                                            </Typography>
+                                        </Box>
+                                        <Box fontSize={18} fontWeight="fontWeightLight" mt={3}>
+                                            {info.body}
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        )
+                        :
+                        (
+                            <Box pt={6} pb={6} style={{ backgroundColor: "#e1f5fe" }} key={info.id}>
+                                <Grid container direction={dir} alignItems="center">
+                                    <Grid item sm={12} md={6} className={classes.con4} >
+                                        <Box mt={3}>
+                                            <Typography style={{ fontSize: "20px" }}>
+                                                {info.head}
+                                            </Typography>
+                                        </Box>
+                                        <Box mt={3}>
+                                            <Typography variant='h4' className={classes.changefontSize}>
+                                                {info.title}
+                                            </Typography>
+                                        </Box>
+                                        <Box fontSize={18} fontWeight="fontWeightLight" mt={3}>
+                                            {info.body}
+                                        </Box>
+                                    </Grid>
+                                    <Grid item sm={12} md={6} style={{ paddingLeft: "48px", paddingRight: "48px" }}>
+                                        <img src={info.logo} width="100%" style={{ height: height }} alt={info.head} />
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        )
+                )}
 
+            </Box>
             <Box className={classes.con3}>
                 <Typography variant='h4' className={classes.changefontSize} component="div">
                     <Box fontWeight={350}>
