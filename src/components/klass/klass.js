@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil';
-import { currentClassId } from '../../atoms';
+import { currentClassId, currentTabId } from '../../atoms';
 import { useParams } from 'react-router-dom';
 
 import Assignment from './assignment/assignment'
@@ -56,23 +56,31 @@ export default function Klass() {
 
     const { classId } = useParams();
     const [currentKlassId, setCurrentKlassId] = useRecoilState(currentClassId);
+    const [currentTab, setCurrentTab] = useRecoilState(currentTabId);
     setCurrentKlassId(classId);
 
     console.log(classId);
     console.log(currentKlassId);
 
     const classes = useStyles();
-    const [value, setValue] = useState(0);
+    //const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setCurrentTab(newValue);
     };
+
+    useEffect(() => {
+        return () => {
+            setCurrentTab(0);
+            console.log("clean up");
+        };
+    }, []);
 
     return (
         <div className={classes.root}>
             <AppBar position="sticky" color="default">
                 <Tabs
-                    value={value}
+                    value={currentTab}
                     onChange={handleChange}
                     indicatorColor="primary"
                     textColor="primary"
@@ -87,19 +95,19 @@ export default function Klass() {
                     <Tab label="Class Members" {...a11yProps(4)} />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0} style={{ backgroundColor: "#e8eaf6" }} >
-                <Chat classId={classId}/>
+            <TabPanel value={currentTab} index={0} style={{ backgroundColor: "#e8eaf6" }} >
+                <Chat classId={classId} />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={currentTab} index={1}>
                 <SharedFolder />
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={currentTab} index={2}>
                 <Quiz />
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel value={currentTab} index={3}>
                 <Assignment />
             </TabPanel>
-            <TabPanel value={value} index={4}>
+            <TabPanel value={currentTab} index={4}>
                 <ClassMembers />
             </TabPanel>
         </div>

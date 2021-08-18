@@ -38,3 +38,11 @@ export const currentClassId = atom({
         localStorageEffect('currentClassId'),
     ]
 });
+
+export const currentTabId = atom({
+    key: "currentTabId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('currentTabId'),
+    ]
+});

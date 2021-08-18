@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil'
 import { isLoggedIn } from '../../atoms';
 import LMenu from './loggedInMenu';
@@ -29,12 +30,13 @@ export default function Navbar() {
 
 	const login = useRecoilValue(isLoggedIn);
 	const classes = useStyles();
+    const history = useHistory();
 
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="logo" href="/">
+					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="logo" onClick={() => history.push('/')}>
 						<MenuBookIcon style={{ fontSize: 30 }} />
 					</IconButton>
 					<Typography variant="h6" className={classes.title}>
