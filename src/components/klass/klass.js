@@ -74,6 +74,7 @@ export default function Klass() {
             setCurrentTab(0);
             console.log("clean up");
         };
+        // eslint-disable-next-line
     }, []);
 
     return (
