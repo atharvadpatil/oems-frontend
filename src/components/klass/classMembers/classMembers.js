@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import axiosInstance from '../../../axios'
 import { useRecoilValue } from 'recoil';
 import { userData, currentClassId } from '../../../atoms';

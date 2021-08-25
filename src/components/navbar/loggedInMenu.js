@@ -120,6 +120,11 @@ export default function LMenu() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                //remove the line below to pop menu over avatar
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                }}
             >
                 <MenuItem onClick={() => history.push('/dashboard')}>Dashboard</MenuItem>
                 <MenuItem>
@@ -151,7 +156,7 @@ export default function LMenu() {
                 closeDialog={closeCreate}
                 title="Create Class"
             />
-            
+
             <JoinClass
                 open={openJoin}
                 closeDialog={closeJoin}
