@@ -111,7 +111,7 @@ const Chat = ({ classId }) => {
     };
 
     return (
-        <div ref={chat} >
+        <div ref={chat} style={{padding: "24px"}}>
             {messages.length > 0 && messages.map(m => (
                 <div key={m.id}>
                     {m.user_id === user.user_id ?

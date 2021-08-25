@@ -80,7 +80,7 @@ const ClassMembers = () => {
     }
 
     return (
-        <Container>
+        <Container style={{padding: "24px"}}>
             <Box>
                 <div className={classes.root}>
                     <Grid container spacing={2} direction="row" justify="center" alignItems="flex-end" alignContent="flex-end">

@@ -136,7 +136,7 @@ const SharedFolder = () => {
 
     return (
         <div>
-            <Box m={0} p={0}>
+            <Box m={0} p={3}>
                 <Grid container spacing={1} direction="row" justify="center" alignItems="flex-end" alignContent="flex-end">
                     <Grid item xs={12} sm={10} md={8}>
                         <Typography variant="h6" className={classes.title}>
