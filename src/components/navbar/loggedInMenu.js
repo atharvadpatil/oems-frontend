@@ -124,6 +124,7 @@ export default function LMenu() {
                 getContentAnchorEl={null}
                 anchorOrigin={{
                     vertical: 'bottom',
+                    horizontal: 'center',
                 }}
             >
                 <MenuItem onClick={() => history.push('/dashboard')}>Dashboard</MenuItem>
@@ -137,7 +138,7 @@ export default function LMenu() {
                         onChange={handleChange}
                     />
                     <label htmlFor="contained-button-file">
-                        Update Profile
+                        Update Profile Picture
                     </label>
                 </MenuItem>
                 <MenuItem onClick={openDialog}>Change Password</MenuItem>
