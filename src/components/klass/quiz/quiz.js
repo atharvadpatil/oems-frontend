@@ -1,4 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
+import axiosInstance from '../../../axios'
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { userData, currentClassId, quizDrawerId } from '../../../atoms';
+
+import Questions from './questions';
+import MakeQuiz from './makeQuiz';
+import MakeQuestions from './makeQuestions';
+import TeachQuiz from './teachQuiz';
+import Statistics from './statistics'
+
+import CompletedStuQuiz from './completedStuQuiz';
+import PendingStuQuiz from './pendingStuQuiz';
+
+//MUI
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,8 +25,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import Paper from '@material-ui/core/Paper';
 
 const drawerWidth = 200;
@@ -56,7 +72,34 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const RenderSwitch = ({ id, type }) => {
+    console.log(id + ' '+ type);
+    if (type === "student"){
+        switch (id) {
+            case 0:
+                return <PendingStuQuiz/> ;
+            case 1:
+                return <CompletedStuQuiz/> ;
+        }
+    }
+    else {
+        switch (id) {
+            case 0:
+                return <TeachQuiz /> ;
+            case 1:
+                return <MakeQuiz/> ;
+            case 2:
+                return <Statistics/> ;
+        }
+    }
+}
+
 export default function Quiz() {
+
+    const user = useRecoilValue(userData);
+    const classId = useRecoilValue(currentClassId);
+    const [drawerId, setDrawerId] = useRecoilState(quizDrawerId);
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -95,62 +138,51 @@ export default function Quiz() {
                             </IconButton>}
                     </div>
                     <Divider />
-                    <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
+
+                    {user.user_type === "student" ?
+                        <List>
+                            <ListItem button>
                                 <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    <AssignmentIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={text} />
+                                <ListItemText primary="Pending" />
                             </ListItem>
-                        ))}
-                    </List>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <AssignmentTurnedInIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Completed" />
+                            </ListItem>
+                        </List>
+
+                        :
+
+                        <List>
+                            <ListItem button onClick={() => setDrawerId(0)}>
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Quizzes" />
+                            </ListItem>
+                            <ListItem button onClick={() => setDrawerId(1)}>
+                                <ListItemIcon>
+                                    <PostAddIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Make Quiz" />
+                            </ListItem>
+                            <ListItem button onClick={() => setDrawerId(2)}>
+                                <ListItemIcon>
+                                    <EqualizerIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Statistics" />
+                            </ListItem>
+                        </List>
+                    }
                     <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
                 </Drawer>
             </Paper>
             <main className={classes.content}>
-                <Typography variant="h5">
-                    Quiz
-                </Typography>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-                    dolor purus non enim praesent elementum facilisis leo vel. Risus at
-                    ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-                    quisque non tellus. Convallis convallis tellus id interdum velit
-                    laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-                    adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-                    integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-                    eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-                    quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-                    vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-                    lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-                    faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-                    ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-                    elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-                    sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-                    mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-                    risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-                    purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-                    tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-                    morbi tristique senectus et. Adipiscing elit duis tristique
-                    sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                    eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-                    posuere sollicitudin aliquam ultrices sagittis orcia.
-                </Typography>
+                <RenderSwitch id={drawerId} type={user.user_type} />
             </main>
         </div>
     );

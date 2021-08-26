@@ -46,3 +46,11 @@ export const currentTabId = atom({
         localStorageEffect('currentTabId'),
     ]
 });
+
+export const quizDrawerId = atom({
+    key: "quizDrawerId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('quizDrawerId'),
+    ]
+});
