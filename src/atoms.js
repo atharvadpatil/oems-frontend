@@ -47,6 +47,8 @@ export const currentTabId = atom({
     ]
 });
 
+
+//Quiz
 export const quizDrawerId = atom({
     key: "quizDrawerId",
     default: 0,
@@ -54,15 +56,6 @@ export const quizDrawerId = atom({
         localStorageEffect('quizDrawerId'),
     ]
 });
-
-export const assignmentDrawerId = atom({
-    key: "assignmentDrawerId",
-    default: 0,
-    effects_UNSTABLE: [
-        localStorageEffect('assignmentDrawerId'),
-    ]
-});
-
 
 export const currentQuizId = atom({
     key: "currentQuizId",
@@ -73,10 +66,43 @@ export const currentQuizId = atom({
 });
 
 
+//Assignment
+export const assignmentStudentDrawerId = atom({
+    key: "assignmentStudentDrawerId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('assignmentStudentDrawerId'),
+    ]
+});
+
+export const assignmentTeacherDrawerId = atom({
+    key: "assignmentTeacherDrawerId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('assignmentTeacherDrawerId'),
+    ]
+});
+
 export const currentAssignmentId = atom({
     key: "currentAssignmentId",
     default: 0,
     effects_UNSTABLE: [
         localStorageEffect('currentAssignmentId'),
+    ]
+});
+
+export const currentResponseId = atom({
+    key: "currentResponseId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('currentResponseId'),
+    ]
+});
+
+export const currentGradeId = atom({
+    key: "currentGradeId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('currentGradeId'),
     ]
 });
