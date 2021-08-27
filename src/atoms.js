@@ -54,3 +54,29 @@ export const quizDrawerId = atom({
         localStorageEffect('quizDrawerId'),
     ]
 });
+
+export const assignmentDrawerId = atom({
+    key: "assignmentDrawerId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('assignmentDrawerId'),
+    ]
+});
+
+
+export const currentQuizId = atom({
+    key: "currentQuizId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('currentQuizId'),
+    ]
+});
+
+
+export const currentAssignmentId = atom({
+    key: "currentAssignmentId",
+    default: 0,
+    effects_UNSTABLE: [
+        localStorageEffect('currentAssignmentId'),
+    ]
+});
