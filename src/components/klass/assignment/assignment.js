@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { userData, assignmentStudentDrawerId, assignmentTeacherDrawerId } from '../../../atoms';
@@ -111,7 +111,12 @@ export default function Assignment() {
     const user = useRecoilValue(userData);
     const [ tindex, setTindex]=useRecoilState(assignmentTeacherDrawerId);
 
-
+    useEffect(()=>{
+        return ()=>{
+            setIndex(0);
+            console.log("Cleaned up");
+        };
+    },[]);
 
     return (
         <div>
