@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../../../axios';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { assignmentStudentDrawerId, userData, currentClassId, currentAssignmentId } from '../../../../atoms';
+import { assignmentStudentDrawerId, userData, currentAssignmentId } from '../../../../atoms';
 import { format } from 'date-fns';
 
 
@@ -118,9 +118,7 @@ const AssignmentDetails = () => {
                             {ad.name}
                         </Typography>
                         <Typography>
-                            {ad.due_on}
-                            {/* not working */}
-                            {/* {`Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`} */}
+                            {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
                         </Typography>
                     </Box>
                     <Box>
@@ -158,7 +156,7 @@ const AssignmentDetails = () => {
                                             </ListItemAvatar>
                                             <ListItemText
                                                 // how to get name of file
-                                                primary="Question File"
+                                                primary={ad.ques_file && ad.ques_file.split("/").pop()}
                                             />
                                         </ListItem>
                                     </Paper>
@@ -180,6 +178,7 @@ const AssignmentDetails = () => {
                         color="primary"
                         onClick={openDialog}
                     >
+                        {/* color red if late submission */}
                         {ad.assignment_status==="Overdue" ? "Turn In Late" : "Turn In"}
                     </Button>
                 </Box>

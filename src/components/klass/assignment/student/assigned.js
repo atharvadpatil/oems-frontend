@@ -78,7 +78,8 @@ const Assigned = () => {
                                                 <ListItem>
                                                     <ListItemText
                                                         primary={l.name}
-                                                        secondary={`Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                        // red if past due
+                                                        secondary={l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
                                                     />
                                                 </ListItem>
                                             </Paper>
