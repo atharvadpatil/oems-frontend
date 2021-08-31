@@ -62,6 +62,10 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(3, 3, 0, 3)
     },
+    content1: {
+        flexGrow: 1,
+        padding: theme.spacing(0, 3, 0, 0)
+    },
     control: {
         display: 'flex',
         alignItems: 'center',
@@ -172,7 +176,7 @@ export default function Assignment() {
             )
             :
             (
-                <div className={classes.content}>
+                <div className={classes.content1}>
                     {renderSwitch(tindex, user.user_type)}
                 </div>
             )
