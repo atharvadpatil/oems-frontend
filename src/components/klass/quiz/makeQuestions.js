@@ -34,6 +34,62 @@ const MakeQuestions = ({ qnum }) => {
 
     let questions = [];
 
+    const check = (questions) => {
+        let c = 0;
+        questions.map((m) => {
+            if (m.question === "" || m.option1 === "" || m.option2 === "" || m.option3 === "" || m.option4 === "" || m.correct_option > 4 || m.correct_option < 1 || m.marks < 1) {
+                c++;
+            }
+        })
+        console.log(c);
+        if (c === 0)
+            return true;
+        else
+            return false;
+    }
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+        console.log(questions);
+        let submit = true;
+
+        submit = check(questions);
+        console.log(submit);
+
+        if (submit) {
+            questions.map((m) => {
+                axiosInstance
+                    .post(`quiz/make-question`, {
+                        "quiz_id": quizId,
+                        "question": m.question,
+                        "marks": m.marks,
+                        "option1": m.option1,
+                        "option2": m.option2,
+                        "option3": m.option3,
+                        "option4": m.option4,
+                        "correct_option_number": m.correct_option,
+                    })
+                    .then((res) => {
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        console.log({ err })
+                        if (err.response.status === 400) {
+                            setTransition(() => TransitionLeft);
+                            setOpen(true);
+                        }
+                    });
+            })
+            setDrawerId(0);
+        }
+        else {
+            setTransition(() => TransitionLeft);
+            setOpen(true);
+        }
+    };
+
     const handleClose = () => {
         setOpen(false);
     };
