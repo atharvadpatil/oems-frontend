@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axiosInstance from '../../../axios'
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { currentClassId } from '../../../atoms';
 import { format } from 'date-fns';
-
+import { quizDrawerId, currentQuizId } from '../../../atoms';
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,7 +40,11 @@ const useStyles = makeStyles((theme) => ({
 const ClassMembers = () => {
 
     const [quiz, setQuiz] = useState(null);
+
+    const setQuizId = useSetRecoilState(currentQuizId)
+    const setDrawerId = useSetRecoilState(quizDrawerId)
     const classId = useRecoilValue(currentClassId);
+
     const classes = useStyles();
 
     useEffect(() => {
@@ -55,6 +59,11 @@ const ClassMembers = () => {
             });
         // eslint-disable-next-line
     }, [])
+
+    const handleClick = (quiz_id) => {
+        setQuizId(quiz_id);
+        setDrawerId(2);
+    }
 
 
     const releaseResponse = (quiz_id) => {
@@ -83,7 +92,7 @@ const ClassMembers = () => {
                                 <List>
                                     {quiz && quiz.length > 0 ? quiz.map(q => (
                                         <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }}>
-                                            <ListItem>
+                                            <ListItem button onClick={() => handleClick(q.id)}>
                                                 <ListItemAvatar>
                                                     <Avatar style={{ backgroundColor: "white" }}>
                                                         <AssignmentTwoToneIcon color="primary" style={{ fontSize: 26 }} />

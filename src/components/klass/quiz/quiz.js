@@ -4,6 +4,7 @@ import { userData, quizDrawerId } from '../../../atoms';
 
 import MakeQuiz from './makeQuiz';
 import TeachQuiz from './teachQuiz';
+import QuizDetails from './quizDetails';
 import Statistics from './statistics'
 
 import CompletedStuQuiz from './completedStuQuiz';
@@ -87,6 +88,8 @@ const RenderSwitch = ({ id, type }) => {
             case 1:
                 return <MakeQuiz />;
             case 2:
+                return <QuizDetails />;
+            case 3:
                 return <Statistics />;
             default:
                 return <TeachQuiz />;
@@ -169,7 +172,7 @@ export default function Quiz() {
                                 </ListItemIcon>
                                 <ListItemText primary="Make Quiz" />
                             </ListItem>
-                            <ListItem button onClick={() => setDrawerId(2)}>
+                            <ListItem button onClick={() => setDrawerId(3)}>
                                 <ListItemIcon>
                                     <EqualizerIcon />
                                 </ListItemIcon>
