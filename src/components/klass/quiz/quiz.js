@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import axiosInstance from '../../../axios'
+import React from 'react'
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { userData, currentClassId, quizDrawerId } from '../../../atoms';
+import { userData, quizDrawerId } from '../../../atoms';
 
-import Questions from './questions';
 import MakeQuiz from './makeQuiz';
-import MakeQuestions from './makeQuestions';
 import TeachQuiz from './teachQuiz';
 import Statistics from './statistics'
 
@@ -17,7 +14,6 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -73,23 +69,27 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RenderSwitch = ({ id, type }) => {
-    console.log(id + ' '+ type);
-    if (type === "student"){
+    console.log(id + ' ' + type);
+    if (type === "student") {
         switch (id) {
             case 0:
-                return <PendingStuQuiz/> ;
+                return <PendingStuQuiz />;
             case 1:
-                return <CompletedStuQuiz/> ;
+                return <CompletedStuQuiz />;
+            default:
+                return <PendingStuQuiz />;
         }
     }
     else {
         switch (id) {
             case 0:
-                return <TeachQuiz /> ;
+                return <TeachQuiz />;
             case 1:
-                return <MakeQuiz/> ;
+                return <MakeQuiz />;
             case 2:
-                return <Statistics/> ;
+                return <Statistics />;
+            default:
+                return <TeachQuiz />;
         }
     }
 }
@@ -97,7 +97,6 @@ const RenderSwitch = ({ id, type }) => {
 export default function Quiz() {
 
     const user = useRecoilValue(userData);
-    const classId = useRecoilValue(currentClassId);
     const [drawerId, setDrawerId] = useRecoilState(quizDrawerId);
 
     const classes = useStyles();

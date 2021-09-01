@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userData, quizDrawerId, currentClassId, currentQuizId } from '../../../atoms';
+import { currentClassId, currentQuizId } from '../../../atoms';
 import axiosInstance from '../../../axios';
 import 'date-fns';
 import { format } from 'date-fns'
@@ -8,10 +8,13 @@ import DateFnsUtils from '@date-io/date-fns';
 
 //MUI
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
-import { Divider, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core';
 import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
 import MakeQuestions from './makeQuestions';
 
@@ -32,11 +35,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
 function TransitionLeft(props) {
     return <Slide {...props} direction="left" />;
 }
@@ -54,8 +52,6 @@ export default function MakeQuiz() {
     const [formData, updateFormData] = useState(initialFormData);
 
     const setQuizId = useSetRecoilState(currentQuizId)
-    const user = useRecoilValue(userData);
-    const drawerId = useRecoilValue(quizDrawerId);
     const classId = useRecoilValue(currentClassId);
 
     const [nameError, setNameError] = useState(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, makeStyles, Paper, Snackbar, TextField, Typography } from "@material-ui/core";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userData, quizDrawerId, currentQuizId } from '../../../atoms';
+import { quizDrawerId, currentQuizId } from '../../../atoms';
 import axiosInstance from '../../../axios';
 import Slide from '@material-ui/core/Slide';
 
@@ -13,10 +13,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 function TransitionLeft(props) {
     return <Slide {...props} direction="left" />;
@@ -36,6 +32,7 @@ const MakeQuestions = ({ qnum }) => {
 
     const check = (questions) => {
         let c = 0;
+        // eslint-disable-next-line
         questions.map((m) => {
             if (m.question === "" || m.option1 === "" || m.option2 === "" || m.option3 === "" || m.option4 === "" || m.correct_option > 4 || m.correct_option < 1 || m.marks < 1) {
                 c++;
@@ -58,6 +55,7 @@ const MakeQuestions = ({ qnum }) => {
         console.log(submit);
 
         if (submit) {
+            // eslint-disable-next-line
             questions.map((m) => {
                 axiosInstance
                     .post(`quiz/make-question`, {
