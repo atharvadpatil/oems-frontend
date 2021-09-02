@@ -6,6 +6,7 @@ import MakeQuiz from './makeQuiz';
 import TeachQuiz from './teachQuiz';
 import QuizDetails from './quizDetails';
 import Statistics from './statistics'
+import QuizStatistics from './quizStatistics';
 
 import CompletedStuQuiz from './completedStuQuiz';
 import PendingStuQuiz from './pendingStuQuiz';
@@ -91,6 +92,8 @@ const RenderSwitch = ({ id, type }) => {
                 return <QuizDetails />;
             case 3:
                 return <Statistics />;
+            case 4:
+                return <QuizStatistics />;
             default:
                 return <TeachQuiz />;
         }
