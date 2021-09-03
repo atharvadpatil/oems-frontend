@@ -98,11 +98,3 @@ export const currentResponseId = atom({
         localStorageEffect('currentResponseId'),
     ]
 });
-
-export const currentGradeId = atom({
-    key: "currentGradeId",
-    default: 0,
-    effects_UNSTABLE: [
-        localStorageEffect('currentGradeId'),
-    ]
-});

@@ -72,7 +72,7 @@ const ResponsesList = () => {
                             <Divider style={{ marginBottom: "10px" }} />
                             <div className={classes.demo}>
                                 <List dense={dense}>
-                                    {submitted.map(s => (
+                                    {submitted.length>0 ? submitted.map(s => (
                                         <div key={s.id}>
                                             <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={() => handleClick(s.id)}>
                                                 <ListItem>
@@ -84,7 +84,12 @@ const ResponsesList = () => {
                                                 </ListItem>
                                             </Paper>
                                         </div>
-                                    ))}
+                                    ))
+                                    :
+                                    <Typography variant="overline" display="block" gutterBottom>
+                                        No submitted Responses
+                                    </Typography>
+                                }
                                 </List>
                             </div>
                         </Grid>

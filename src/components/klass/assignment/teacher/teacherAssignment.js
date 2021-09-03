@@ -86,7 +86,7 @@ function renderSwitch(index){
 
 export default function TeacherAssignment() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);

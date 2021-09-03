@@ -51,6 +51,12 @@ const TeacherAssignmentDetails = () => {
     const setIndex = useSetRecoilState(assignmentTeacherDrawerId);
     const [ad, setAd] = useState([]);
     const dense = false;
+    const [selectedQuesFile, setSelectedQuesFile] = useState(null);
+    const [isFile, setIsFile] = useState(false);
+    const [name, setName] = useState("");
+    const [instructions, setInstructions] = useState("");
+    const [marks, setMarks] = useState(0);
+    const [due, setDue] = useState(new Date());
 
     // get assignment Details
     function getAssignmentDetails(){
@@ -77,12 +83,7 @@ const TeacherAssignmentDetails = () => {
         setOpenState(false);
     }
 
-    const [selectedQuesFile, setSelectedQuesFile] = useState(null);
-    const [isFile, setIsFile] = useState(false);
-    const [name, setName] = useState("");
-    const [instructions, setInstructions] = useState("");
-    const [marks, setMarks] = useState(0);
-    const [due, setDue] = useState(new Date());
+    
 
     const handleDue=(date)=>{
         setDue(date);

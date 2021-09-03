@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 //MUI
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Box from '@material-ui/core/Box';
-import { Button, Divider, List, Typography } from '@material-ui/core';
+import { Button, Divider, Typography } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -20,30 +20,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-    demo: {
-        backgroundColor: theme.palette.background.paper,
-    },
-    title: {
-        margin: theme.spacing(4, 0, 2),
-    },
-    button: {
-        margin: theme.spacing(1),
-    },
-    input: {
-        width: 500,
-    },
-}));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const GradedDetails = () => {
-    const classes = useStyles();
     const setIndex = useSetRecoilState(assignmentTeacherDrawerId);
     const responseId = useRecoilValue(currentResponseId);
     const [gd, setGd] = useState([]);
