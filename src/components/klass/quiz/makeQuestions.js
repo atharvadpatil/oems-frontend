@@ -32,6 +32,9 @@ const MakeQuestions = ({ qnum }) => {
 
     const check = (questions) => {
         let c = 0;
+        questions = questions.filter(function (el) {
+            return el != null;
+        });
         // eslint-disable-next-line
         questions.map((m) => {
             if (m.question === "" || m.option1 === "" || m.option2 === "" || m.option3 === "" || m.option4 === "" || m.correct_option > 4 || m.correct_option < 1 || m.marks < 1) {
@@ -39,7 +42,7 @@ const MakeQuestions = ({ qnum }) => {
             }
         })
         console.log(c);
-        if (c === 0)
+        if (c === 0 && questions.length === qnum)
             return true;
         else
             return false;

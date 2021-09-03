@@ -37,7 +37,6 @@ const QuizDetails = () => {
 
     return (
         <Box mb={4}>
-            {/* {JSON.stringify(quiz)} */}
             <Typography variant="h6">
                 QUIZ DETAILS
             </Typography>
@@ -75,9 +74,14 @@ const QuizDetails = () => {
                 quiz.questions.map((q, key) => (
                     <Paper elevation={3} style={{ backgroundColor: "#e1f5fe" }}>
                         <Box p={2} mt={3}>
-                            <Typography variant="h6">
-                                {"Question" + (key + 1)}
-                            </Typography>
+                            <Box style={{ display: "flex", justifyContent: "space-between" }}>
+                                <Typography variant="h6">
+                                    {"Question" + (key + 1)}
+                                </Typography>
+                                <Typography variant="h6">
+                                    {q.marks} marks
+                                </Typography>
+                            </Box>
                             <Typography>
                                 {q.question}
                             </Typography>

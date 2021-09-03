@@ -90,6 +90,7 @@ const StudentQuiz = () => {
                 .post(`quiz/response/${quizId}/${user.id}`, quizResponse)
                 .then((res) => {
                     console.log(res);
+                    setDrawerId(1);
                 })
                 .catch(err => {
                     console.log(err)
@@ -99,7 +100,6 @@ const StudentQuiz = () => {
                         setOpen(true);
                     }
                 });
-            setDrawerId(0);
         }
         else {
             setTransition(() => TransitionLeft);
@@ -140,10 +140,10 @@ const StudentQuiz = () => {
     return (
         <>
             <Box>
-                <Typography variant="h6" className={classes.title}>
+                <Typography variant="h6" className={classes.title} gutterBottom>
                     {quiz && quiz.name} {" "}
                     {quiz && quiz.quiz_response && quiz.quiz_response.length > 0 ?
-                        <Typography variant="h6" component="span">
+                        <Typography variant="h6" component="span" gutterBottom>
                             Response:
                         </Typography>
                         :
@@ -151,11 +151,23 @@ const StudentQuiz = () => {
                     }
                     {quiz && quiz.quiz_status && quiz.quiz_status === 'Active' ?
                         <>
-                            <br />
-                            <Typography variant="body1" component="span">
+                            <Typography variant="body1" gutterBottom>
                                 {`Quiz will end on: ${format(new Date(quiz.end_time), "MMM dd, yyyy, 'at' HH:mm")}`}
                             </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Total Marks: {quiz && quiz.marks}
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Attempting all questions are mandatory. Response is not auto-saved and will only be accepted on clicking submit.
+                            </Typography>
                         </>
+                        :
+                        null
+                    }
+                    {quiz && quiz.quiz_response && quiz.quiz_response.length > 0 ?
+                        <Typography variant="subtitle1" gutterBottom>
+                            Total Marks Scored: {quiz.marks_scored}/{quiz.total_marks}
+                        </Typography>
                         :
                         null
                     }
@@ -172,35 +184,40 @@ const StudentQuiz = () => {
                     }
                 </Typography>
 
-                {quiz && quiz.quiz_response && quiz.quiz_response.length > 0 ?
-                    quiz.quiz_response.map((q, key) => (
-                        <Paper elevation={3} style={{ backgroundColor: "#e1f5fe" }}>
-                            <Box p={2} mt={3}>
-                                <Typography variant="h6">
-                                    {"Question" + (key + 1)}
-                                </Typography>
-                                <Typography>
-                                    {q.question}
-                                </Typography>
-                                <FormControl component="fieldset">
-                                    <RadioGroup aria-label={"options" + q.id} name={"Question" + (key + 1)} value={q.marked_option_number}>
-                                        <FormControlLabel value={1} control={<Radio />} label={q.option1} />
-                                        <FormControlLabel value={2} control={<Radio />} label={q.option2} />
-                                        <FormControlLabel value={3} control={<Radio />} label={q.option3} />
-                                        <FormControlLabel value={4} control={<Radio />} label={q.option4} />
-                                    </RadioGroup>
-                                </FormControl>
-                                <Box mt={2}>
-                                    <strong>Correct Option Number: {q.correct_option_number} </strong>
+                <Box mb={4}>
+                    {quiz && quiz.quiz_response && quiz.quiz_response.length > 0 ?
+                        quiz.quiz_response.map((q, key) => (
+                            <Paper elevation={3} style={{ backgroundColor: "#e1f5fe" }}>
+                                <Box p={2} mt={3}>
+                                    <Box style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <Typography variant="h6">
+                                            {"Question" + (key + 1)}
+                                        </Typography>
+                                        <Typography variant="h6">
+                                            {q.marks_scored}/{q.marks} {q.marks_scored > 1 ? <>marks</> : <>mark</>}
+                                        </Typography>
+                                    </Box>
+                                    <Typography>
+                                        {q.question}
+                                    </Typography>
+                                    <FormControl component="fieldset">
+                                        <RadioGroup aria-label={"options" + q.id} name={"Question" + (key + 1)} value={q.marked_option_number}>
+                                            <FormControlLabel value={1} control={<Radio />} label={q.option1} />
+                                            <FormControlLabel value={2} control={<Radio />} label={q.option2} />
+                                            <FormControlLabel value={3} control={<Radio />} label={q.option3} />
+                                            <FormControlLabel value={4} control={<Radio />} label={q.option4} />
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <Box mt={2}>
+                                        <strong>Correct Option Number: {q.correct_option_number} </strong>
+                                    </Box>
                                 </Box>
-                            </Box>
-                        </Paper>
-                    ))
-
-                    :
-
-                    null
-                }
+                            </Paper>
+                        ))
+                        :
+                        null
+                    }
+                </Box>
 
                 <Box>
                     {quiz && quiz.quiz_status && quiz.quiz_status === 'Active' ?
@@ -208,9 +225,14 @@ const StudentQuiz = () => {
                             {quiz.questions.map((q, key) => (
                                 <Paper elevation={3} style={{ backgroundColor: "#e1f5fe" }} key={key}>
                                     <Box p={2} mt={3}>
-                                        <Typography variant="h6">
-                                            {"Question" + (key + 1)}
-                                        </Typography>
+                                        <Box style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <Typography variant="h6">
+                                                {"Question" + (key + 1)}
+                                            </Typography>
+                                            <Typography variant="h6">
+                                                {q.marks} marks
+                                            </Typography>
+                                        </Box>
                                         <Typography>
                                             {q.question}
                                         </Typography>
@@ -238,7 +260,7 @@ const StudentQuiz = () => {
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={transition}
-                message="Invalid Data, Please try again."
+                message="Please attempt all the questions"
                 key={transition ? transition.name : ''}
                 className={classes.snackbar}
             />
