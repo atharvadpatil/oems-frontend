@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
     input: {
-        width: 500,
+        marginTop: 10,
     },
 }));
 
@@ -58,6 +58,8 @@ const TeacherAssignmentDetails = () => {
         .then((res)=>{
             setAd(res.data);
             console.log(res.data);
+            setMarks(res.data.total_marks);
+            // setDue(format(res.data.due_on, "yyyy-MM-dd'T'HH:mm:ss.SSSSSSxxx"));
         })
     }
 
