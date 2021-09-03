@@ -10,6 +10,7 @@ import QuizStatistics from './quizStatistics';
 
 import CompletedStuQuiz from './completedStuQuiz';
 import PendingStuQuiz from './pendingStuQuiz';
+import StudentQuiz from './studentQuiz';
 
 //MUI
 import clsx from 'clsx';
@@ -78,6 +79,8 @@ const RenderSwitch = ({ id, type }) => {
                 return <PendingStuQuiz />;
             case 1:
                 return <CompletedStuQuiz />;
+            case 2:
+                return <StudentQuiz />;
             default:
                 return <PendingStuQuiz />;
         }
@@ -146,13 +149,13 @@ export default function Quiz() {
 
                     {user.user_type === "student" ?
                         <List>
-                            <ListItem button>
+                            <ListItem button onClick={() => setDrawerId(0)}>
                                 <ListItemIcon>
                                     <AssignmentIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Pending" />
                             </ListItem>
-                            <ListItem button>
+                            <ListItem button onClick={() => setDrawerId(1)}>
                                 <ListItemIcon>
                                     <AssignmentTurnedInIcon />
                                 </ListItemIcon>
