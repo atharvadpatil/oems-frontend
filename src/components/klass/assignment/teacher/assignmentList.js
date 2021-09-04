@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../../../axios';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { assignmentTeacherDrawerId, userData, currentClassId, currentAssignmentId } from '../../../../atoms';
+import { assignmentTeacherDrawerId, currentClassId, currentAssignmentId } from '../../../../atoms';
 import { format } from 'date-fns';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -33,7 +33,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { TextField } from '@material-ui/core';
 import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
-import { DragHandleRounded } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,9 +59,7 @@ const AssignmentList = () => {
 
     const setAssignmentId = useSetRecoilState(currentAssignmentId);
     const classId = useRecoilValue(currentClassId);
-    const user = useRecoilValue(userData);
     const setIndex = useSetRecoilState(assignmentTeacherDrawerId);
-    const teacherId = user.id;
     const [list, setList] = useState([]);
 
     //get Created Assignment list

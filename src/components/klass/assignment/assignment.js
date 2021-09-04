@@ -100,7 +100,7 @@ function renderSwitch(index, user_type){
 
 export default function Assignment() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -113,7 +113,7 @@ export default function Assignment() {
     //index and user_type
     const [index, setIndex] = useRecoilState(assignmentStudentDrawerId);
     const user = useRecoilValue(userData);
-    const [ tindex, setTindex]=useRecoilState(assignmentTeacherDrawerId);
+    const tindex=useRecoilValue(assignmentTeacherDrawerId);
 
     useEffect(()=>{
         return ()=>{
