@@ -170,7 +170,7 @@ const Home = () => {
                         This project is built by: <br /> <Link href="https://github.com/VirajPatidar" color="inherit" target="_blank" rel="noopener">Viraj Patidar</Link> & <Link href="https://github.com/atharvadpatil" color="inherit" target="_blank" rel="noopener">Atharva Patil</Link>
                     </Box>
                     <Box mt={2}>
-                        <Link href="https://github.com/" color="inherit" target="_blank" rel="noopener">
+                        <Link href="https://github.com/VirajPatidar/oems-frontend/" color="inherit" target="_blank" rel="noopener">
                             <Button
                                 variant="outlined"
                                 display="inline"
