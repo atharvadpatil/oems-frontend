@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { currentClassId, currentTabId } from '../../atoms';
 import { useParams } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Klass() {
 
     const { classId } = useParams();
-    const [currentKlassId, setCurrentKlassId] = useRecoilState(currentClassId);
+    const setCurrentKlassId = useSetRecoilState(currentClassId);
     const [currentTab, setCurrentTab] = useRecoilState(currentTabId);
     setCurrentKlassId(classId);
 
