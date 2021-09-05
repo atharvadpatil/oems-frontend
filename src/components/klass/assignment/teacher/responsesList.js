@@ -14,6 +14,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import AssignmentTwoToneIcon from '@material-ui/icons/AssignmentTwoTone';
 
 const useStyles = makeStyles((theme) => ({
     demo: {
@@ -37,13 +40,13 @@ const ResponsesList = () => {
     const [notSubmitted, setNotSubmitted] = useState([]);
 
     //get response list
-    function getResponseList(){
+    function getResponseList() {
         axiosInstance.get(`assignment/${assignmentId}/response-list`)
-        .then((res)=>{
-            setSubmitted(res.data["Submitted_Responses"]);
-            setNotSubmitted(res.data["Not_Submitted_Responses"]);
-            console.log(res.data);
-        })
+            .then((res) => {
+                setSubmitted(res.data["Submitted_Responses"]);
+                setNotSubmitted(res.data["Not_Submitted_Responses"]);
+                console.log(res.data);
+            })
     }
 
     useEffect(() => {
@@ -52,16 +55,14 @@ const ResponsesList = () => {
 
     //set response and index
 
-    function handleClick(id){
+    function handleClick(id) {
         setResponseId(id);
         setIndex(3);
     }
 
 
-    return ( 
+    return (
         <div>
-            {/* <h1>Responses List</h1>
-            <button onClick={()=>setIndex(3)}>Go to specific response</button> */}
             <div>
                 <Box m={0} p={1}>
                     <Grid container spacing={1} direction="row" alignItems="flex-end" alignContent="flex-end">
@@ -72,10 +73,15 @@ const ResponsesList = () => {
                             <Divider style={{ marginBottom: "10px" }} />
                             <div className={classes.demo}>
                                 <List dense={dense}>
-                                    {submitted.length>0 ? submitted.map(s => (
+                                    {submitted.length > 0 ? submitted.map(s => (
                                         <div key={s.id}>
                                             <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={() => handleClick(s.id)}>
-                                                <ListItem>
+                                                <ListItem button>
+                                                    <ListItemAvatar>
+                                                        <Avatar style={{ backgroundColor: "white" }}>
+                                                            <AssignmentTwoToneIcon color="primary" style={{ fontSize: 26 }} />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
                                                     <ListItemText
                                                         primary={s.name}
                                                         // red if past due
@@ -85,37 +91,34 @@ const ResponsesList = () => {
                                             </Paper>
                                         </div>
                                     ))
-                                    :
-                                    <Typography variant="overline" display="block" gutterBottom>
-                                        No submitted Responses
-                                    </Typography>
-                                }
+                                        :
+                                        <Typography variant="overline" display="block" gutterBottom>
+                                            No submitted Responses
+                                        </Typography>
+                                    }
                                 </List>
                             </div>
+                            <Typography>
+                                Graded assignments are moved to the graded section
+                            </Typography>
                         </Grid>
                     </Grid>
-                    
                 </Box>
-                <Box m={0} p={1} pt={2}>
-                    <Typography>
-                            Please Find Graded Responses In Graded Section
-                    </Typography>
-                </Box>
-                <Box m={0} p={1}>
+                <Box mt={3} p={1}>
                     <Grid container spacing={1} direction="row" alignItems="flex-end" alignContent="flex-end">
                         <Grid item xs={12} sm={10} md={8}>
                             <Typography variant="h6">
-                                Not Submitted Student List
+                                Awaiting responses from the following students:
                             </Typography>
                             <Divider style={{ marginBottom: "10px" }} />
                             <div className={classes.demo}>
                                 <List dense={dense}>
                                     {notSubmitted.map(s => (
                                         <div key={s.email}>
-                                            <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }}>
+                                            <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe", maxWidth: "650px" }}>
                                                 <ListItem>
                                                     <ListItemText
-                                                        primary={s.name}
+                                                        primary={s.name.toUpperCase()}
                                                         secondary={s.email}
                                                     />
                                                 </ListItem>
@@ -131,5 +134,5 @@ const ResponsesList = () => {
         </div>
     );
 }
- 
+
 export default ResponsesList;

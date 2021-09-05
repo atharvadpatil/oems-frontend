@@ -55,12 +55,12 @@ const AssignmentDetails = () => {
 
 
     // get assignment Details
-    function getAssignmentDetails(){
+    function getAssignmentDetails() {
         axiosInstance.get(`assignment/${assignmentId}/student/pending`)
-        .then((res) => {
-            setAd(res.data);
-            console.log(res.data);
-        })
+            .then((res) => {
+                setAd(res.data);
+                console.log(res.data);
+            })
     }
 
     useEffect(() => {
@@ -93,61 +93,64 @@ const AssignmentDetails = () => {
         let form_data = new FormData();
         form_data.append('submission_file', selectedFile);
         axiosInstance.post(`assignment/${assignmentId}/${user.id}/submit`, form_data)
-        .then((res)=>{
-            console.log(res);
-            closeDialog();
-            setIndex(1);
-        })
-        .catch(err => console.log(err));
+            .then((res) => {
+                console.log(res);
+                closeDialog();
+                setIndex(1);
+            })
+            .catch(err => console.log(err));
     }
 
-    return ( 
+    return (
         <div>
-            {/* <button onClick={()=>setIndex(0)}>Go back to assigned assignment list</button>
-            <h1>Assignment Details</h1> */}
-            <Box display="flex" onClick={()=>setIndex(0)}>
-                <ChevronLeftIcon color="primary" />
-                <Typography color="primary">
-                    back
-                </Typography>
+            <Box display="flex" onClick={() => setIndex(0)}>
+                <Button style={{ textTransform: 'lowercase', paddingLeft: 0 }}>
+                    <ChevronLeftIcon color="primary" />
+                    <Typography color="primary">
+                        back
+                    </Typography>
+                </Button>
             </Box>
-            <Box m={0} pt={3} width="40%">
+            <Box m={0} pt={3} pl={3}>
                 <Box pb={2} display="flex" justifyContent="space-between">
                     <Box>
-                        <Typography variant="h4">
+                        <Typography variant="h5">
                             {ad.name}
                         </Typography>
-                        <Typography>
-                            {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
-                        </Typography>
+                        {(new Date()) < (new Date(ad.due_on)) ?
+                            <Typography>
+                                {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
+                            </Typography>
+                            :
+                            <Typography style={{ color: "#e53935" }}>
+                                {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
+                            </Typography>
+                        }
                     </Box>
                     <Box>
-                        <Typography>
-                            Marks
-                        </Typography>
-                        <Typography>
-                            {ad.total_marks}
+                        <Typography style={{ fontSize: 18, fontWeight: 500 }}>
+                            Marks: {ad.total_marks}
                         </Typography>
                     </Box>
                 </Box>
+                <Divider style={{ marginBottom: "24px" }} />
                 <Box pb={2}>
-                    <Typography>
+                    <Typography style={{ fontWeight: 500 }}>
                         Instructions:
                     </Typography>
                     <Typography>
                         {ad.instructions}
                     </Typography>
                 </Box>
-                <Box pb={2}>
-                    <Typography>
-                        Questions File:
+                <Box mt={2} pb={2}>
+                    <Typography style={{ fontWeight: 500 }}>
+                        Question File:
                     </Typography>
                     <List dense={dense}>
-                        { ad.ques_file ? 
+                        {ad.ques_file ?
                             (
                                 <Link href={`http://127.0.0.1:8000${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
-                                    {/* not responsive  */}
-                                    <Paper style={{ marginTop: "10px"}}>
+                                    <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                                         <ListItem>
                                             <ListItemAvatar>
                                                 <Avatar style={{ backgroundColor: "white" }}>
@@ -165,13 +168,12 @@ const AssignmentDetails = () => {
                             :
                             (
                                 <Typography variant="overline" display="block" gutterBottom>
-                                        No Question File
+                                    No Question File
                                 </Typography>
                             )
                         }
                     </List>
                 </Box>
-                <Divider></Divider>
                 <Box pt={3}>
                     <Button
                         variant="outlined"
@@ -179,15 +181,15 @@ const AssignmentDetails = () => {
                         onClick={openDialog}
                     >
                         {/* color red if late submission */}
-                        {ad.assignment_status==="Overdue" ? "Turn In Late" : "Turn In"}
+                        {ad.assignment_status === "Overdue" ? "Turn In Late" : "Turn In"}
                     </Button>
                 </Box>
             </Box>
-        
 
 
-        {/* upload dialog */}
-        <Dialog
+
+            {/* upload dialog */}
+            <Dialog
                 open={openState}
                 TransitionComponent={Transition}
                 keepMounted
@@ -222,7 +224,7 @@ const AssignmentDetails = () => {
                 </DialogActions>
             </Dialog>
         </div>
-     );
+    );
 }
- 
+
 export default AssignmentDetails;

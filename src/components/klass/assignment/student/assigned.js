@@ -14,6 +14,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import AssignmentTwoToneIcon from '@material-ui/icons/AssignmentTwoTone';
 
 const useStyles = makeStyles((theme) => ({
     demo: {
@@ -48,7 +51,7 @@ const Assigned = () => {
     }
 
     //set assignment and index
-    function handleClick(id){
+    function handleClick(id) {
         setAssignmentId(id);
         setIndex(2);
     }
@@ -74,12 +77,28 @@ const Assigned = () => {
                                 <List dense={dense}>
                                     {list.length > 0 ? list.map(l => (
                                         <div key={l.id}>
-                                            <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={()=>handleClick(l.id)}>
-                                                <ListItem>
+                                            <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={() => handleClick(l.id)}>
+                                                <ListItem button>
+                                                    <ListItemAvatar>
+                                                        <Avatar style={{ backgroundColor: "white" }}>
+                                                            <AssignmentTwoToneIcon color="primary" style={{ fontSize: 26 }} />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
                                                     <ListItemText
                                                         primary={l.name}
-                                                        // red if past due
-                                                        secondary={l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                        secondary={
+                                                            <>
+                                                                {(new Date()) < (new Date(l.due_on)) ?
+                                                                    <Typography>
+                                                                        {l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                                    </Typography>
+                                                                    :
+                                                                    <Typography style={{ color: "#e53935" }}>
+                                                                        {l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                                    </Typography>
+                                                                }
+                                                            </>
+                                                        }
                                                     />
                                                 </ListItem>
                                             </Paper>

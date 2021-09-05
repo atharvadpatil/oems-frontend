@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../../../axios';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { assignmentTeacherDrawerId,  currentResponseId } from '../../../../atoms';
+import { assignmentTeacherDrawerId, currentResponseId } from '../../../../atoms';
 import { format } from 'date-fns';
 
 //MUI
@@ -31,24 +31,24 @@ const GradedDetails = () => {
     const setIndex = useSetRecoilState(assignmentTeacherDrawerId);
     const responseId = useRecoilValue(currentResponseId);
     const [gd, setGd] = useState([]);
-    
+
     const [marks, setMarks] = useState(0);
     const [remark, setRemark] = useState("");
 
     //get grade details
-    function getGradeDetails(){
+    function getGradeDetails() {
         axiosInstance.get(`assignment/${responseId}/graded-response`)
-        .then((res)=>{
-            setGd(res.data);
-            console.log(res.data);
-            setMarks(res.data.mark);
-            setRemark(res.data.remark);
-        })
+            .then((res) => {
+                setGd(res.data);
+                console.log(res.data);
+                setMarks(res.data.mark);
+                setRemark(res.data.remark);
+            })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getGradeDetails()
-    },[])
+    }, [])
 
     //update grade
     const [openState, setOpenState] = useState(false);
@@ -61,52 +61,59 @@ const GradedDetails = () => {
     }
 
 
-    const handleSubmit = e =>{
+    const handleSubmit = e => {
         e.preventDefault();
         let form_data = new FormData();
         form_data.append("marks_scored", marks);
         form_data.append("remark", remark);
         axiosInstance.put(`assignment/${gd.grade_id}/update-grade`, form_data)
-        .then((res)=>{
-            console.log(res);
-            closeDialog();
-            window.location.reload();
-        })
-        .catch(err => console.log(err));
+            .then((res) => {
+                console.log(res);
+                closeDialog();
+                window.location.reload();
+            })
+            .catch(err => console.log(err));
     }
 
 
-    return ( 
+    return (
         <div>
-            {/* <h1>Graded Details</h1>
-            <button onClick={()=>setIndex(4)}>Go back to graded list</button> */}
             <Box display="flex" onClick={() => setIndex(4)}>
-                <ChevronLeftIcon color="primary" />
-                <Typography color="primary">
-                    back
-                </Typography>
+                <Button style={{ textTransform: 'lowercase', paddingLeft: 0 }}>
+                    <ChevronLeftIcon color="primary" />
+                    <Typography color="primary">
+                        back
+                    </Typography>
+                </Button>
             </Box>
-            <Box m={0} pt={2} maxWidth={650}>
+            <Box m={0} pt={3} pl={3}>
                 <Typography variant="h5">
                     Student Response
                 </Typography>
                 <Divider></Divider>
                 <Box pt={2}>
                     <Box>
-                        <Typography>
-                            Name: {gd.name}
+                        <Typography style={{ fontWeight: 500 }} component="span">
+                            Name: {" "}
                         </Typography>
-                        <Typography>
-                            Email: {gd.email}
+                        <Typography component="span">
+                            {gd.name}
+                        </Typography>
+                        <br />
+                        <Typography style={{ fontWeight: 500 }} component="span">
+                            Email: {" "}
+                        </Typography>
+                        <Typography component="span">
+                            {gd.email}
                         </Typography>
                     </Box>
-                    <Box pt={2}>
-                        <Typography variant="h6">
-                            Submission File:
+                    <Box pt={2} mb={1}>
+                        <Typography style={{ fontWeight: 500 }}>
+                            Submitted File:
                         </Typography>
                     </Box>
                     <Link href={`http://127.0.0.1:8000${gd.submission_file}`} target="_blank" style={{ textDecoration: "None" }}>
-                        <Paper style={{ marginTop: "10px" }}>
+                        <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                             <ListItem>
                                 <ListItemAvatar>
                                     <Avatar style={{ backgroundColor: "white" }}>
@@ -131,16 +138,23 @@ const GradedDetails = () => {
                         Grade Details
                     </Typography>
                 </Box>
-                <Box pt={2} display="flex" justifyContent="space-between">
+                <Box pt={2}>
                     <Box>
-                    <Typography>
-                        Marks: {gd.mark}
-                    </Typography>
-                    <Typography>
-                        Remarks: {gd.remark}
-                    </Typography>
+                        <Typography component="span" style={{ fontWeight: 500 }}>
+                            Marks Scored: {" "}
+                        </Typography>
+                        <Typography component="span">
+                            {gd.mark}
+                        </Typography>
+                        <br />
+                        <Typography component="span" style={{ fontWeight: 500 }}>
+                            Remarks: {" "}
+                        </Typography>
+                        <Typography component="span">
+                            {gd.remark}
+                        </Typography>
                     </Box>
-                    <Box >
+                    <Box mt={3}>
                         <Button
                             variant="outlined"
                             color="primary"
@@ -164,7 +178,7 @@ const GradedDetails = () => {
                 <DialogTitle id="alert-dialog-title">Add Grade</DialogTitle>
                 <DialogContent>
                     <form>
-                    <TextField
+                        <TextField
                             variant="outlined"
                             margin="normal"
                             fullWidth
@@ -173,7 +187,7 @@ const GradedDetails = () => {
                             label="Marks"
                             type="number"
                             id="marks"
-                            onChange={(e)=>setMarks(e.target.value)}
+                            onChange={(e) => setMarks(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -183,7 +197,7 @@ const GradedDetails = () => {
                             label="Remark"
                             type="text"
                             id="remarks"
-                            onChange={(e)=>setRemark(e.target.value)}
+                            onChange={(e) => setRemark(e.target.value)}
                         />
                     </form>
                 </DialogContent>
@@ -197,7 +211,7 @@ const GradedDetails = () => {
                 </DialogActions>
             </Dialog>
         </div>
-     );
+    );
 }
- 
+
 export default GradedDetails;

@@ -7,13 +7,6 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 
 
-// //format
-// format(due, "yyyy-MM-dd'T'HH:mm:ss.SSSSSSxxx")
-
-// //UI
-
-
-
 //MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -33,6 +26,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { TextField } from '@material-ui/core';
 import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import AssignmentTwoToneIcon from '@material-ui/icons/AssignmentTwoTone';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +69,7 @@ const AssignmentList = () => {
 
     useEffect(() => {
         getCreatedAssignments();
+        // eslint-disable-next-line
     }, [])
 
     // set assignment and index
@@ -99,46 +96,46 @@ const AssignmentList = () => {
     const [due, setDue] = useState(new Date());
     const [error, setError] = useState(false)
 
-    const handleDue=(date)=>{
+    const handleDue = (date) => {
         setDue(date);
     }
 
-    const handleFile = e =>{
-        if(e.target.files[0]){
+    const handleFile = e => {
+        if (e.target.files[0]) {
             setSelectedQuesFile(e.target.files[0]);
             setIsFile(true);
         }
     }
 
-    const handleSubmit = e =>{
+    const handleSubmit = e => {
         e.preventDefault();
 
-        let submit=true;
+        let submit = true;
         setError(false);
-        if(name===""){
+        if (name === "") {
             setError(true);
-            submit=false;
+            submit = false;
         }
 
-        if(submit){
+        if (submit) {
             let form_data = new FormData();
             form_data.append('name', name);
-            if(instructions!==""){
+            if (instructions !== "") {
                 form_data.append('instructions', instructions);
             }
             form_data.append('total_marks', marks);
             form_data.append('class_id', classId);
             form_data.append('due_on', format(due, "yyyy-MM-dd'T'HH:mm:ss.SSSSSSxxx"));
-            if(isFile){
+            if (isFile) {
                 form_data.append('ques_file', selectedQuesFile);
             }
             axiosInstance.post(`assignment/create-assignment`, form_data)
-            .then((res)=>{
-                console.log(res);
-                closeDialog();
-                window.location.reload();
-            })
-            .catch(err => console.log(err));
+                .then((res) => {
+                    console.log(res);
+                    closeDialog();
+                    window.location.reload();
+                })
+                .catch(err => console.log(err));
         }
 
     }
@@ -147,36 +144,50 @@ const AssignmentList = () => {
 
     return (
         <div style={{ paddingTop: "24px", paddingLeft: "24px" }}>
-            {/* <h1>Created assignment List</h1>
-            <button onClick={()=>setIndex(1)}>Go to specific assignment page</button> */}
             <div>
                 <Box m={0} p={1}>
                     <Grid container spacing={1} direction="row" alignItems="flex-end" alignContent="flex-end">
                         <Grid item xs={12} sm={10} md={8}>
                             <Typography variant="h6">
-                                Created Assignments
+                                <span style={{ marginRight: "20px" }}>Created Assignments</span>
                                 <Button
                                     variant="outlined"
                                     color="primary"
                                     className={classes.button}
                                     onClick={openDialog}
                                     startIcon={<AddCircleIcon />}
-                                    style={{ marginLeft: "20px" }}
+                                    style={{ marginLeft: 0 }}
                                 >
                                     Create New Assignment
                                 </Button>
                             </Typography>
-                            <Divider style={{ marginBottom: "10px" }} />
+                            <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
                             <div className={classes.demo}>
                                 <List dense={dense}>
                                     {list.length > 0 ? list.map(l => (
                                         <div key={l.id}>
                                             <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={() => handleClick(l.id)}>
-                                                <ListItem>
+                                                <ListItem button>
+                                                    <ListItemAvatar>
+                                                        <Avatar style={{ backgroundColor: "white" }}>
+                                                            <AssignmentTwoToneIcon color="primary" style={{ fontSize: 26 }} />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
                                                     <ListItemText
                                                         primary={l.name}
-                                                        // red if past due
-                                                        secondary={l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                        secondary={
+                                                            <>
+                                                                {(new Date()) < (new Date(l.due_on)) ?
+                                                                    <Typography>
+                                                                        {l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                                    </Typography>
+                                                                    :
+                                                                    <Typography style={{ color: "#e53935" }}>
+                                                                        {l.due_on && `Due on ${format(new Date(l.due_on), "MMM dd, yyyy, HH:mm")}`}
+                                                                    </Typography>
+                                                                }
+                                                            </>
+                                                        }
                                                     />
                                                 </ListItem>
                                             </Paper>
@@ -215,7 +226,7 @@ const AssignmentList = () => {
                             type="text"
                             id="name"
                             error={error}
-                            onChange={(e)=>setName(e.target.value)}
+                            onChange={(e) => setName(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -225,7 +236,7 @@ const AssignmentList = () => {
                             label="Instructions"
                             type="textarea"
                             id="instructions"
-                            onChange={(e)=>setInstructions(e.target.value)}
+                            onChange={(e) => setInstructions(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -236,7 +247,7 @@ const AssignmentList = () => {
                             label="Marks"
                             type="number"
                             id="marks"
-                            onChange={(e)=>setMarks(e.target.value)}
+                            onChange={(e) => setMarks(e.target.value)}
                         />
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <DateTimePicker

@@ -91,33 +91,33 @@ const Grade = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        let form_data =new FormData();
+        let form_data = new FormData();
         form_data.append('submission_file', selectedFile);
         console.log(form_data);
         axiosInstance.put(`assignment/${rd.id}/update-response`, form_data)
-        .then((res)=>{
-            console.log(res);
-            closeDialog();
-            window.location.reload();
-        })
-        .catch(err => console.log(err));
+            .then((res) => {
+                console.log(res);
+                closeDialog();
+                window.location.reload();
+            })
+            .catch(err => console.log(err));
     }
 
 
     return (
         <div>
-            {/* <button onClick={()=>setIndex(1)}>Go back to complated assign list</button>
-            <h1>Grade</h1> */}
             <Box display="flex" onClick={() => setIndex(1)}>
-                <ChevronLeftIcon color="primary" />
-                <Typography color="primary">
-                    back
-                </Typography>
+                <Button style={{ textTransform: 'lowercase', paddingLeft: 0 }}>
+                    <ChevronLeftIcon color="primary" />
+                    <Typography color="primary">
+                        back
+                    </Typography>
+                </Button>
             </Box>
-            <Box m={0} pt={3} width="50%">
+            <Box m={0} pt={3} pl={3}>
                 <Box pb={2} display="flex" justifyContent="space-between">
                     <Box>
-                        <Typography variant="h4">
+                        <Typography variant="h5">
                             {ad.name}
                         </Typography>
                         <Typography>
@@ -125,16 +125,14 @@ const Grade = () => {
                         </Typography>
                     </Box>
                     <Box>
-                        <Typography>
-                            Marks
-                        </Typography>
-                        <Typography>
-                            {ad.total_marks}
+                        <Typography style={{ fontSize: 18, fontWeight: 500 }}>
+                            Marks: {ad.total_marks}
                         </Typography>
                     </Box>
                 </Box>
+                <Divider style={{ marginBottom: "24px" }} />
                 <Box pb={2}>
-                    <Typography>
+                    <Typography style={{ fontWeight: 500 }}>
                         Instructions:
                     </Typography>
                     <Typography>
@@ -142,7 +140,7 @@ const Grade = () => {
                     </Typography>
                 </Box>
                 <Box pb={2}>
-                    <Typography>
+                    <Typography style={{ fontWeight: 500 }}>
                         Questions File:
                     </Typography>
                     <List dense={dense}>
@@ -150,8 +148,8 @@ const Grade = () => {
                             (
                                 <Link href={`http://127.0.0.1:8000${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
                                     {/* not responsive  */}
-                                    <Paper style={{ marginTop: "10px" }}>
-                                        <ListItem>
+                                    <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
+                                        <ListItem button>
                                             <ListItemAvatar>
                                                 <Avatar style={{ backgroundColor: "white" }}>
                                                     <DescriptionIcon color="primary" />
@@ -174,19 +172,19 @@ const Grade = () => {
                         }
                     </List>
                 </Box>
-                <Divider></Divider>
+                <Divider style={{ marginTop: "24px", marginBottom: "24px" }} />
                 <Box pt={2}>
-                    <Box display="flex">
-                        <Typography variant="h6">
-                            Your Work  :
-                        </Typography>
-                        <Typography variant="h6">
-                            {rd.submission_status}
-                        </Typography>
+                    <Box mb={3}>
+                            <Typography variant="h5">
+                                Turned In Work
+                            </Typography>
+                            <Typography>
+                                {rd.submission_status}
+                            </Typography>
                     </Box>
                     <Link href={`http://127.0.0.1:8000${rd.submission_file}`} target="_blank" style={{ textDecoration: "None" }}>
                         {/* not responsive  */}
-                        <Paper style={{ marginTop: "10px" }}>
+                        <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                             <ListItem>
                                 <ListItemAvatar>
                                     <Avatar style={{ backgroundColor: "white" }}>
@@ -205,42 +203,39 @@ const Grade = () => {
                         {rd.submited_date && `Submitted on ${format(new Date(rd.submited_date), "MMMM dd,yyyy HH:mm")}`}
                     </Typography>
                 </Box>
-                <Box pt={1} display="flex" justifyContent="space-between">
-                    <Box>
-                        <Typography>
-                            Marks:
-                        </Typography>
-                        <Typography>
-                            {rd.marks}
-                        </Typography>
-                    </Box>
-                    <Box>
-                        {rd.isGraded ? (<Button variant="contained" disable>Update</Button>):
-                        (
-                        <Button 
-                            variant="contained"
-                            color="primary"
-                            onClick={openDialog}
-                        >
-                            Update
-                        </Button>
-                        )
-                        }
-                    </Box>
-                </Box>
-                <Box pt={1}>
-                    <Typography>
-                        Remark:
+                <Box pt={3}>
+                    <Typography style={{ fontWeight: 500 }} component="span">
+                        Remarks: {" "}
                     </Typography>
-                    <Typography>
+                    <Typography component="span">
                         {rd.remark}
                     </Typography>
+                </Box>
+                <Box>
+                    <Box mt={1}>
+                        <Typography style={{ fontWeight: 500 }}>
+                            Marks Scored: {rd.marks}
+                        </Typography>
+                    </Box>
+                    <Box mt={3}>
+                        {rd.isGraded ? (<Button variant="contained" disabled>Update</Button>) :
+                            (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={openDialog}
+                                >
+                                    Update
+                                </Button>
+                            )
+                        }
+                    </Box>
                 </Box>
             </Box>
 
 
-        {/* upload dialog */}
-        <Dialog
+            {/* upload dialog */}
+            <Dialog
                 open={openState}
                 TransitionComponent={Transition}
                 keepMounted

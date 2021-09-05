@@ -59,18 +59,24 @@ const TeacherAssignmentDetails = () => {
     const [due, setDue] = useState(new Date());
 
     // get assignment Details
-    function getAssignmentDetails(){
+    function getAssignmentDetails() {
         axiosInstance.get(`assignment/${assignmentId}/teacher`)
-        .then((res)=>{
-            setAd(res.data);
-            console.log(res.data);
-            setMarks(res.data.total_marks);
-            // setDue(format(res.data.due_on, "yyyy-MM-dd'T'HH:mm:ss.SSSSSSxxx"));
-        })
+            .then((res) => {
+                setAd(res.data);
+                console.log(res.data);
+                setName(res.data.name);
+                setInstructions(res.data.instructions);
+                setMarks(res.data.total_marks);
+                setDue(new Date(res.data.due_on));
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     useEffect(() => {
         getAssignmentDetails()
+        // eslint-disable-next-line
     }, [])
 
     //change assignment details
@@ -83,98 +89,113 @@ const TeacherAssignmentDetails = () => {
         setOpenState(false);
     }
 
-    
 
-    const handleDue=(date)=>{
+
+    const handleDue = (date) => {
         setDue(date);
     }
 
-    const handleFile = e =>{
-        if(e.target.files[0]){
+    const handleFile = e => {
+        if (e.target.files[0]) {
             setSelectedQuesFile(e.target.files[0]);
             setIsFile(true);
         }
     }
 
-    const handleSubmit = e =>{
+    const handleSubmit = e => {
+
         e.preventDefault();
+
         let form_data = new FormData();
-        if(name!==""){
+
+        if (name !== "") {
             form_data.append('name', name);
         }
-        else{
+
+        else {
             form_data.append('name', ad.name);
         }
 
-        if(instructions!==""){
+        if (instructions !== "") {
             form_data.append('instructions', instructions);
         }
-        else{
+
+        else {
             form_data.append('instructions', ad.instructions);
         }
-        
+
         form_data.append('total_marks', marks);
+
         form_data.append('due_on', format(due, "yyyy-MM-dd'T'HH:mm:ss.SSSSSSxxx"));
-        if(isFile){
+
+        if (isFile && selectedQuesFile != null) {
             form_data.append('ques_file', selectedQuesFile);
         }
-        axiosInstance.put(`assignment/${assignmentId}/update-assignment`, form_data)
-        .then((res)=>{
-            console.log(res);
-            closeDialog();
-            window.location.reload();
-        })
-        .catch(err => console.log(err));
+
+        console.log(form_data);
+
+        axiosInstance.patch(`assignment/${assignmentId}/update-assignment`, form_data)
+            .then((res) => {
+                console.log(res);
+                closeDialog();
+                window.location.reload();
+            })
+            .catch(err => console.log(err));
 
     }
 
-    return ( 
+    return (
         <div>
-            {/* <h1>Assignment Details</h1>
-            <button onClick={()=>setIndex(0)}>Go back to assignemnt list</button> */}
-            <Box display="flex" onClick={()=>setIndex(0)}>
-                <ChevronLeftIcon color="primary" />
-                <Typography color="primary">
-                    back
-                </Typography>
+            <Box display="flex" onClick={() => setIndex(0)}>
+                <Button style={{ textTransform: 'lowercase', paddingLeft: 0 }}>
+                    <ChevronLeftIcon color="primary" />
+                    <Typography color="primary">
+                        back
+                    </Typography>
+                </Button>
             </Box>
-            <Box m={0} pt={3} maxWidth={650}>
+            <Box m={0} pt={3} pl={3}>
                 <Box pb={2} display="flex" justifyContent="space-between">
-                    <Box>
-                        <Typography variant="h4">
+                    <Box pr={3}>
+                        <Typography variant="h5">
                             {ad.name}
                         </Typography>
-                        <Typography>
-                            {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
-                        </Typography>
+
+                        {(new Date()) < (new Date(ad.due_on)) ?
+                            <Typography>
+                                {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
+                            </Typography>
+                            :
+                            <Typography style={{ color: "#e53935" }}>
+                                {ad.due_on && `Due on ${format(new Date(ad.due_on), "MMM dd, yyyy, HH:mm")}`}
+                            </Typography>
+                        }
+
                     </Box>
                     <Box>
-                        <Typography>
-                            Marks
-                        </Typography>
-                        <Typography>
-                            {ad.total_marks}
+                        <Typography style={{ fontSize: 18, fontWeight: 500 }}>
+                            Marks: {ad.total_marks}
                         </Typography>
                     </Box>
                 </Box>
+                <Divider style={{ marginBottom: "24px" }} />
                 <Box pb={2}>
-                    <Typography>
+                    <Typography style={{ fontWeight: 500 }}>
                         Instructions:
                     </Typography>
                     <Typography>
                         {ad.instructions}
                     </Typography>
                 </Box>
-                <Box pb={2}>
-                    <Typography>
-                        Questions File:
+                <Box mt={2} pb={2}>
+                    <Typography style={{ fontWeight: 500 }}>
+                        Question File:
                     </Typography>
                     <List dense={dense}>
-                        { ad.ques_file ? 
+                        {ad.ques_file ?
                             (
                                 <Link href={`http://127.0.0.1:8000${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
-                                    {/* not responsive  */}
-                                    <Paper style={{ marginTop: "10px"}}>
+                                    <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                                         <ListItem>
                                             <ListItemAvatar>
                                                 <Avatar style={{ backgroundColor: "white" }}>
@@ -192,13 +213,12 @@ const TeacherAssignmentDetails = () => {
                             :
                             (
                                 <Typography variant="overline" display="block" gutterBottom>
-                                        No Question File
+                                    No Question File
                                 </Typography>
                             )
                         }
                     </List>
                 </Box>
-                <Divider></Divider>
                 <Box pt={3}>
                     <Button
                         variant="outlined"
@@ -219,7 +239,7 @@ const TeacherAssignmentDetails = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">Create Assignment</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Update Assignment</DialogTitle>
                 <DialogContent>
                     <form>
                         <TextField
@@ -231,8 +251,8 @@ const TeacherAssignmentDetails = () => {
                             label="Name"
                             type="text"
                             id="name"
-                            placeholder={ad.name}
-                            onChange={(e)=>setName(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -242,8 +262,8 @@ const TeacherAssignmentDetails = () => {
                             label="Instructions"
                             type="textarea"
                             id="instructions"
-                            placeholder={ad.instructions}
-                            onChange={(e)=>setInstructions(e.target.value)}
+                            value={instructions}
+                            onChange={(e) => setInstructions(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -254,8 +274,8 @@ const TeacherAssignmentDetails = () => {
                             label="Marks"
                             type="number"
                             id="marks"
-                            placeholder={ad.marks}
-                            onChange={(e)=>setMarks(e.target.value)}
+                            value={marks}
+                            onChange={(e) => setMarks(e.target.value)}
                         />
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <DateTimePicker
@@ -294,7 +314,7 @@ const TeacherAssignmentDetails = () => {
                 </DialogActions>
             </Dialog>
         </div>
-     );
+    );
 }
- 
+
 export default TeacherAssignmentDetails;

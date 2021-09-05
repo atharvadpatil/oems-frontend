@@ -13,6 +13,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import AssignmentTwoToneIcon from '@material-ui/icons/AssignmentTwoTone';
 
 const useStyles = makeStyles((theme) => ({
     demo: {
@@ -47,7 +50,7 @@ const Completed = () => {
     }
 
     //set assignment and index
-    function handleClick(id){
+    function handleClick(id) {
         setAssignmentId(id);
         setIndex(3);
     }
@@ -55,10 +58,8 @@ const Completed = () => {
     useEffect(() => {
         getComplatedAssignemnt()
     }, [])
-    return ( 
+    return (
         <div>
-            {/* <h1>Completed Assignment List</h1>
-            <button onClick={()=>setIndex(3)}>Go to grade</button> */}
             <div>
                 <Box m={0} p={1}>
                     <Grid container spacing={1} direction="row" alignItems="flex-end" alignContent="flex-end">
@@ -71,8 +72,13 @@ const Completed = () => {
                                 <List dense={dense}>
                                     {list.length > 0 ? list.map(l => (
                                         <div key={l.id}>
-                                            <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={()=>handleClick(l.id)}>
-                                                <ListItem>
+                                            <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }} onClick={() => handleClick(l.id)}>
+                                                <ListItem button>
+                                                    <ListItemAvatar>
+                                                        <Avatar style={{ backgroundColor: "white" }}>
+                                                            <AssignmentTwoToneIcon color="primary" style={{ fontSize: 26 }} />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
                                                     <ListItemText
                                                         primary={l.name}
                                                     />
@@ -91,7 +97,7 @@ const Completed = () => {
                 </Box>
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default Completed;
