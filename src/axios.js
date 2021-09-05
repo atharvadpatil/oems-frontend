@@ -50,13 +50,11 @@ axiosInstance.interceptors.response.use(
 
 				// exp date in token is expressed in seconds, while now() returns milliseconds:
 				const now = Math.ceil(Date.now() / 1000);
-				console.log(tokenParts.exp);
 
 				if (tokenParts.exp > now) {
 					return axiosInstance
 						.post('auth/token/refresh', { refresh: refreshToken })
 						.then((response) => {
-							console.log(response);
 							localStorage.setItem('access_token', response.data.access);
 
 							axiosInstance.defaults.headers['Authorization'] =
@@ -67,15 +65,12 @@ axiosInstance.interceptors.response.use(
 							return axiosInstance(originalRequest);
 						})
 						.catch((err) => {
-							console.log(err);
                             return Promise.reject(err);
 						});
 				} else {
-					console.log('Refresh token is expired', tokenParts.exp, now);
 					window.location.href = '/login';
 				}
 			} else {
-				console.log('Refresh token not available.');
 				window.location.href = '/login';
 			}
 		}
