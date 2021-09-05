@@ -57,6 +57,7 @@ const Completed = () => {
 
     useEffect(() => {
         getComplatedAssignemnt()
+        // eslint-disable-next-line
     }, [])
     return (
         <div>

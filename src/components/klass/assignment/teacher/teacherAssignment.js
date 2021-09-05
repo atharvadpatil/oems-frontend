@@ -69,8 +69,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function renderSwitch(index){
-    switch(index){
+function renderSwitch(index) {
+    switch (index) {
         case 1:
             return <TeacherAssignmentDetails />
         case 2:
@@ -81,6 +81,8 @@ function renderSwitch(index){
             return <GradedList />
         case 5:
             return <GradedDetails />
+        default:
+            return <TeacherAssignmentDetails />
     }
 }
 
@@ -100,12 +102,13 @@ export default function TeacherAssignment() {
     const [index, setIndex] = useRecoilState(assignmentTeacherDrawerId);
 
 
-    useEffect(()=>{
-        return ()=>{
+    useEffect(() => {
+        return () => {
             setIndex(0);
             console.log("Cleaned up");
         };
-    },[]);
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -134,26 +137,26 @@ export default function TeacherAssignment() {
                             </IconButton>}
                     </div>
                     <Divider />
-                        <List>
-                            <ListItem button onClick={()=>setIndex(1)}>
-                                <ListItemIcon>
-                                    <AssignmentIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Details" />
-                            </ListItem>
-                            <ListItem button onClick={()=>setIndex(2)}>
-                                <ListItemIcon>
-                                    <AssignmentLateIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Responses" />
-                            </ListItem>
-                            <ListItem button onClick={()=>setIndex(4)}>
-                                <ListItemIcon>
-                                    <AssignmentTurnedInIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Graded" />
-                            </ListItem>
-                        </List>
+                    <List>
+                        <ListItem button onClick={() => setIndex(1)}>
+                            <ListItemIcon>
+                                <AssignmentIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Details" />
+                        </ListItem>
+                        <ListItem button onClick={() => setIndex(2)}>
+                            <ListItemIcon>
+                                <AssignmentLateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Responses" />
+                        </ListItem>
+                        <ListItem button onClick={() => setIndex(4)}>
+                            <ListItemIcon>
+                                <AssignmentTurnedInIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Graded" />
+                        </ListItem>
+                    </List>
                 </Drawer>
             </Paper>
             <main className={classes.content}>

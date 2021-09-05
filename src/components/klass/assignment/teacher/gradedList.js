@@ -49,6 +49,7 @@ const GradedList = () => {
 
     useEffect(() => {
         getGradedResponseList()
+        // eslint-disable-next-line
     }, [])
 
     //set index and response
@@ -59,8 +60,6 @@ const GradedList = () => {
 
     return (
         <div>
-            {/* <h1>Graded List</h1>
-            <button onClick={()=>setIndex(5)}>go to specific graded details</button> */}
             <div>
                 <Box m={0} p={1}>
                     <Grid container spacing={1} direction="row" alignItems="flex-end" alignContent="flex-end">

@@ -73,10 +73,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function renderSwitch(index, user_type){
-    if (user_type ==='student')
-    {
-        switch(index){
+function renderSwitch(index, user_type) {
+    if (user_type === 'student') {
+        switch (index) {
             case 0:
                 return <Assigned />;
             case 1:
@@ -85,11 +84,12 @@ function renderSwitch(index, user_type){
                 return <AssignmentDetails />
             case 3:
                 return <Grade />
+            default:
+                return <Assigned />
         }
     }
-    else
-    {
-        switch(index){
+    else {
+        switch (index) {
             case 0:
                 return <AssignmentList />
             default:
@@ -113,74 +113,75 @@ export default function Assignment() {
     //index and user_type
     const [index, setIndex] = useRecoilState(assignmentStudentDrawerId);
     const user = useRecoilValue(userData);
-    const tindex=useRecoilValue(assignmentTeacherDrawerId);
+    const tindex = useRecoilValue(assignmentTeacherDrawerId);
 
-    useEffect(()=>{
-        return ()=>{
+    useEffect(() => {
+        return () => {
             setIndex(0);
             console.log("Cleaned up");
         };
-    },[]);
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <div>
-            {user.user_type==='student'
-            ?
-            (
-            <div className={classes.root}>
-                <Paper elevation={3}>
-                    <Drawer
-                        variant="permanent"
-                        className={clsx(classes.drawer, {
-                            [classes.drawerOpen]: open,
-                            [classes.drawerClose]: !open
-                        })}
-                        classes={{
-                            paper: clsx({
-                                [classes.drawerOpen]: open,
-                                [classes.drawerClose]: !open
-                            })
-                        }}
-                    >
-                        <div className={classes.control}>
-                            {open ?
-                                <IconButton onClick={handleDrawerClose}>
-                                    <ChevronLeftIcon />
-                                </IconButton>
-                                :
-                                <IconButton onClick={handleDrawerOpen}>
-                                    <ChevronRightIcon />
-                                </IconButton>}
-                        </div>
-                        <Divider />
-                            <List>
-                                <ListItem button onClick={()=>setIndex(0)}>
-                                    <ListItemIcon>
-                                        <AssignmentIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Assigned" />
-                                </ListItem>
-                                <ListItem button onClick={()=>setIndex(1)}>
-                                    <ListItemIcon>
-                                        <AssignmentTurnedInIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Completed" />
-                                </ListItem>
-                            </List>
-                    </Drawer>
-                </Paper>
-                <main className={classes.content}>
-                    {renderSwitch(index, user.user_type)}
-                </main>
-            </div>
-            )
-            :
-            (
-                <div className={classes.content1}>
-                    {renderSwitch(tindex, user.user_type)}
-                </div>
-            )
-        }    
+            {user.user_type === 'student'
+                ?
+                (
+                    <div className={classes.root}>
+                        <Paper elevation={3}>
+                            <Drawer
+                                variant="permanent"
+                                className={clsx(classes.drawer, {
+                                    [classes.drawerOpen]: open,
+                                    [classes.drawerClose]: !open
+                                })}
+                                classes={{
+                                    paper: clsx({
+                                        [classes.drawerOpen]: open,
+                                        [classes.drawerClose]: !open
+                                    })
+                                }}
+                            >
+                                <div className={classes.control}>
+                                    {open ?
+                                        <IconButton onClick={handleDrawerClose}>
+                                            <ChevronLeftIcon />
+                                        </IconButton>
+                                        :
+                                        <IconButton onClick={handleDrawerOpen}>
+                                            <ChevronRightIcon />
+                                        </IconButton>}
+                                </div>
+                                <Divider />
+                                <List>
+                                    <ListItem button onClick={() => setIndex(0)}>
+                                        <ListItemIcon>
+                                            <AssignmentIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Assigned" />
+                                    </ListItem>
+                                    <ListItem button onClick={() => setIndex(1)}>
+                                        <ListItemIcon>
+                                            <AssignmentTurnedInIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Completed" />
+                                    </ListItem>
+                                </List>
+                            </Drawer>
+                        </Paper>
+                        <main className={classes.content}>
+                            {renderSwitch(index, user.user_type)}
+                        </main>
+                    </div>
+                )
+                :
+                (
+                    <div className={classes.content1}>
+                        {renderSwitch(tindex, user.user_type)}
+                    </div>
+                )
+            }
         </div>
     );
 }

@@ -102,6 +102,7 @@ const Chat = ({ classId }) => {
                 })
                 .then((res) => {
                     console.log(res);
+                    setText("");
                 })
                 .catch(err => {
                     console.log(err)
@@ -149,6 +150,7 @@ const Chat = ({ classId }) => {
                                     label="Message"
                                     name="message"
                                     size="small"
+                                    value={text}
                                     fullWidth
                                     onChange={(e) => { setText(e.target.value); setTexterror(false); }}
                                     error={texterror}

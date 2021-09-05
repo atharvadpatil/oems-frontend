@@ -51,6 +51,7 @@ const ResponsesList = () => {
 
     useEffect(() => {
         getResponseList()
+        // eslint-disable-next-line
     }, [])
 
     //set response and index

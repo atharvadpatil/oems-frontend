@@ -65,6 +65,7 @@ const Grade = () => {
 
     useEffect(() => {
         getAssignmentDetails()
+        // eslint-disable-next-line
     }, [])
 
     //Upload file

@@ -43,6 +43,7 @@ const ResponseDetails = () => {
 
     useEffect(() => {
         getResponseDeatils()
+        // eslint-disable-next-line
     }, [])
 
     //add grade

@@ -48,6 +48,7 @@ const GradedDetails = () => {
 
     useEffect(() => {
         getGradeDetails()
+        // eslint-disable-next-line
     }, [])
 
     //update grade

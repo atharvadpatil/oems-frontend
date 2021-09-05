@@ -58,13 +58,12 @@ const Assigned = () => {
 
     useEffect(() => {
         getAssignedAssignemnt()
+        // eslint-disable-next-line
     }, [])
 
 
     return (
         <div>
-            {/* <h1>Assigned Assignment List</h1>
-            <button onClick={()=> setIndex(2)}>Go to Assignment Details</button> */}
             <div>
                 <Box m={0} p={1}>
                     <Grid container spacing={1} direction="row" alignItems="flex-end" alignContent="flex-end">

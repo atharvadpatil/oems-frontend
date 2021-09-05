@@ -65,6 +65,7 @@ const AssignmentDetails = () => {
 
     useEffect(() => {
         getAssignmentDetails()
+        // eslint-disable-next-line
     }, [])
 
 
