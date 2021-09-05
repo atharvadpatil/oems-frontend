@@ -52,11 +52,9 @@ const ClassMembers = () => {
         axiosInstance
             .get(`class/class-list/${classId}`)
             .then((res) => {
-                console.log(res);
                 setMembers(res.data)
             })
             .catch(err => {
-                console.log(err)
             });
         // eslint-disable-next-line
     }, [])
@@ -71,11 +69,9 @@ const ClassMembers = () => {
                 }
             })
             .then((res) => {
-                console.log(res);
                 window.location.reload();
             })
             .catch(err => {
-                console.log(err);
             });
     }
 

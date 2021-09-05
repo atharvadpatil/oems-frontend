@@ -111,7 +111,6 @@ export default function Register() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(formData);
 
 		// Validation
 		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -125,26 +124,18 @@ export default function Register() {
 		if (formData.email === "" || !re.test(formData.email)) {
 			setEmailerror(true)
 			submit = false
-			console.log(submit)
-			console.log(formData.email)
 		}
 		if (formData.name === "" || formData.name.length < 3 || formData.name.length > 19 || /\d/.test(formData.name)) {
 			setNameerror(true)
 			submit = false
-			console.log(submit)
-			console.log(formData.name)
 		}
 		if (formData.password === "" || formData.password.length < 6) {
 			setPasserror(true)
 			submit = false
-			console.log(submit)
-			console.log(formData.password)
 		}
 		if (formData.user_type === "") {
 			setTypeerror(true)
 			submit = false
-			console.log(submit)
-			console.log(formData.user_type)
 		}
 
 		
@@ -157,12 +148,9 @@ export default function Register() {
 					"user_type": formData.user_type,
 				})
 				.then((res) => {
-					console.log(res);
-					console.log(res.data);
 					openDialog();
 				})
 				.catch(err => { 
-					console.log(err)
 					if (err.response.status === 400) {
 						setTransition(() => TransitionLeft);
 						setOpen(true);

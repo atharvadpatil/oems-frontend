@@ -69,14 +69,13 @@ export default function LMenu() {
         form_data.append('avatar', e.target.files[0]);
         axiosInstance.patch(`auth/change-avatar`, form_data)
             .then(res => {
-                console.log(res);
                 setUser({
                     ...user,
                     profile_picture: `http://127.0.0.1:8000${res.data.profile_picture}`,
                 });
                 handleClose();
             })
-            .catch(err => console.log(err));
+            .catch(err => {});
     };
 
 
@@ -86,7 +85,6 @@ export default function LMenu() {
             "refresh": localStorage.getItem('refresh_token'),
         })
             .then((res) => {
-                console.log(res);
                 setUser({});
                 setLogin(false);
                 localStorage.clear();
@@ -94,7 +92,6 @@ export default function LMenu() {
                 history.push('/login');
             })
             .catch(err => {
-                console.log(err)
             });
     };
 

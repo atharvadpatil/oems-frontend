@@ -77,14 +77,11 @@ const QuizStatistics = () => {
             .then((res) => {
                 setProgress(res.data.students_submitted)
                 setStats(res.data);
-                console.log(res);
             })
             .catch(err => {
-                console.log(err);
             });
         return () => {
             setDrawerId(3);
-            console.log("Cleaned up");
         };
         //eslint-disable-next-line
     }, [])

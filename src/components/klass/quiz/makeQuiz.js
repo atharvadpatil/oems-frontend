@@ -92,7 +92,6 @@ export default function MakeQuiz() {
 
         e.preventDefault();
 
-        console.log(formData);
 
         // Validation
 
@@ -105,29 +104,18 @@ export default function MakeQuiz() {
         if (formData.name === "") {
             setNameError(true)
             submit = false
-            console.log(submit)
         }
 
         if (formData.number_of_questions === "" || isNaN(formData.number_of_questions)) {
             setQuesError(true)
             submit = false
-            console.log(submit)
         }
 
         if (formData.marks === "" || isNaN(formData.marks)) {
             setMarksError(true)
             submit = false
-            console.log(submit)
         }
 
-        console.log({
-            "name": formData.name,
-            "class_id": classId,
-            "number_of_questions": formData.number_of_questions,
-            "marks": formData.marks,
-            "start_time": startTime,
-            "end_time": endTime,
-        });
 
         if (submit) {
             axiosInstance
@@ -140,14 +128,11 @@ export default function MakeQuiz() {
                     "end_time": format(endTime, "yyyy-MM-dd'T'HH:mm:ss.SSSSSSxxx"),
                 })
                 .then((res) => {
-                    console.log(res);
                     setQuizId(res.data.id);
                     setQnum(res.data.number_of_questions);
                     setDisabled(true);
                 })
                 .catch(err => {
-                    console.log(err)
-                    console.log({ err })
                     if (err.response.status === 400) {
                         setTransition(() => TransitionLeft);
                         setOpen(true);

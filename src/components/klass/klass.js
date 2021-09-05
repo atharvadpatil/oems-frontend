@@ -59,8 +59,6 @@ export default function Klass() {
     const [currentTab, setCurrentTab] = useRecoilState(currentTabId);
     setCurrentKlassId(classId);
 
-    console.log(classId);
-    console.log(currentKlassId);
 
     const classes = useStyles();
     //const [value, setValue] = useState(0);
@@ -72,7 +70,6 @@ export default function Klass() {
     useEffect(() => {
         return () => {
             setCurrentTab(0);
-            console.log("clean up");
         };
         // eslint-disable-next-line
     }, []);

@@ -21,16 +21,13 @@ const QuizDetails = () => {
         axiosInstance
             .get(`quiz/question/${quizId}`)
             .then((res) => {
-                console.log(res);
                 setQuiz(res.data)
             })
             .catch(err => {
-                console.log(err)
             });
 
         return () => {
             setDrawerId(0);
-            console.log("Cleaned up");
         };
         // eslint-disable-next-line
     }, [])

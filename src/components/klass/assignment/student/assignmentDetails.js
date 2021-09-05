@@ -59,7 +59,6 @@ const AssignmentDetails = () => {
         axiosInstance.get(`assignment/${assignmentId}/student/pending`)
             .then((res) => {
                 setAd(res.data);
-                console.log(res.data);
             })
     }
 
@@ -95,11 +94,10 @@ const AssignmentDetails = () => {
         form_data.append('submission_file', selectedFile);
         axiosInstance.post(`assignment/${assignmentId}/${user.id}/submit`, form_data)
             .then((res) => {
-                console.log(res);
                 closeDialog();
                 setIndex(1);
             })
-            .catch(err => console.log(err));
+            .catch(err => {});
     }
 
     return (

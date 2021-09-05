@@ -63,7 +63,6 @@ const AssignmentList = () => {
         axiosInstance.get(`assignment/${classId}/list`)
             .then((res) => {
                 setList(res.data);
-                console.log(res.data);
             })
     }
 
@@ -131,11 +130,10 @@ const AssignmentList = () => {
             }
             axiosInstance.post(`assignment/create-assignment`, form_data)
                 .then((res) => {
-                    console.log(res);
                     closeDialog();
                     window.location.reload();
                 })
-                .catch(err => console.log(err));
+                .catch(err => {});
         }
 
     }

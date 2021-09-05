@@ -118,7 +118,6 @@ export default function Assignment() {
     useEffect(() => {
         return () => {
             setIndex(0);
-            console.log("Cleaned up");
         };
         // eslint-disable-next-line
     }, []);

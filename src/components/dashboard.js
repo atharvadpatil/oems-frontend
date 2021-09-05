@@ -67,11 +67,9 @@ export default function Dashboard() {
         axiosInstance
             .get(`class/${user.id}`)
             .then((res) => {
-                console.log(res);
                 setClasses(res.data.classes)
             })
             .catch(err => {
-                console.log(err)
             });
             // eslint-disable-next-line
     }, [])
@@ -86,11 +84,9 @@ export default function Dashboard() {
                     }
                 })
                 .then((res) => {
-                    console.log(res);
                     window.location.reload();
                 })
                 .catch(err => {
-                    console.log(err);
                 });
         }
         else if (user.user_type === "teacher") {
@@ -101,11 +97,9 @@ export default function Dashboard() {
                     }
                 })
                 .then((res) => {
-                    console.log(res);
                     window.location.reload();
                 })
                 .catch(err => {
-                    console.log(err);
                 });
         }
     }

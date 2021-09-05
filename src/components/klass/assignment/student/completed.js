@@ -45,7 +45,6 @@ const Completed = () => {
         axiosInstance.get(`assignment/${studentId}/${classId}/list`)
             .then((res) => {
                 setList(res.data['Submitted']);
-                console.log(res.data);
             })
     }
 

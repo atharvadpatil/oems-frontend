@@ -95,7 +95,6 @@ export default function SignIn() {
 
         e.preventDefault();
 
-        console.log(formData);
 
         // Validation
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -107,14 +106,10 @@ export default function SignIn() {
         if (formData.email === "" || !re.test(formData.email)) {
             setEmailerror(true)
             submit = false
-            console.log(submit)
-            console.log(formData.email)
         }
         if (formData.password === "" || formData.password.length < 6) {
             setPasserror(true)
             submit = false
-            console.log(submit)
-            console.log(formData.password)
         }
 
 
@@ -125,8 +120,6 @@ export default function SignIn() {
                     "password": formData.password,
                 })
                 .then((res) => {
-                    console.log(res);
-                    console.log(res.data);
 
                     localStorage.setItem('access_token', res.data.user_data.tokens.access);
                     localStorage.setItem('refresh_token', res.data.user_data.tokens.refresh);
@@ -149,7 +142,6 @@ export default function SignIn() {
 
                 })
                 .catch(err => { 
-					console.log(err)
 					if (err.response.status === 401 && err.response.data.detail === "Invalid credentials, try again") {
 						setTransition(() => TransitionLeft);
 						setOpen(true);

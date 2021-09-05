@@ -51,11 +51,9 @@ const ClassMembers = () => {
         axiosInstance
             .get(`quiz/${classId}`)
             .then((res) => {
-                console.log(res);
                 setQuiz(res.data)
             })
             .catch(err => {
-                console.log(err)
             });
         // eslint-disable-next-line
     }, [])
@@ -70,11 +68,9 @@ const ClassMembers = () => {
         axiosInstance
             .post(`quiz/result/${quiz_id}`)
             .then((res) => {
-                console.log(res);
                 window.location.reload();
             })
             .catch(err => {
-                console.log(err);
             });
     }
 

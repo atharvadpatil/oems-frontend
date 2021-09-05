@@ -45,7 +45,6 @@ const ResponsesList = () => {
             .then((res) => {
                 setSubmitted(res.data["Submitted_Responses"]);
                 setNotSubmitted(res.data["Not_Submitted_Responses"]);
-                console.log(res.data);
             })
     }
 

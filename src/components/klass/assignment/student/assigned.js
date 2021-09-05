@@ -46,7 +46,6 @@ const Assigned = () => {
         axiosInstance.get(`assignment/${studentId}/${classId}/list`)
             .then((res) => {
                 setList(res.data['Pending']);
-                console.log(res.data);
             })
     }
 

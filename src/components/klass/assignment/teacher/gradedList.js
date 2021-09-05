@@ -43,7 +43,6 @@ const GradedList = () => {
         axiosInstance.get(`assignment/${assignmentId}/graded-response-list`)
             .then((res) => {
                 setList(res.data);
-                console.log(res.data);
             })
     }
 

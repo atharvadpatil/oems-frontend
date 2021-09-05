@@ -48,11 +48,9 @@ const PendingStuQuiz = () => {
         axiosInstance
             .get(`quiz/${classId}/${user.id}`)
             .then((res) => {
-                console.log(res);
                 setQuiz(res.data.pending)
             })
             .catch(err => {
-                console.log(err)
             });
         // eslint-disable-next-line
     }, [])

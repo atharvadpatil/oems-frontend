@@ -48,11 +48,9 @@ const CompletedStuQuiz = () => {
         axiosInstance
             .get(`quiz/${classId}/${user.id}`)
             .then((res) => {
-                console.log(res);
                 setQuiz(res.data.submitted)
             })
             .catch(err => {
-                console.log(err)
             });
         // eslint-disable-next-line
     }, [])

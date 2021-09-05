@@ -64,7 +64,6 @@ export default function ChangePassword(props) {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        console.log(formData);
 
         // Validation
 
@@ -74,10 +73,6 @@ export default function ChangePassword(props) {
         if (formData.new_password === "" || formData.new_password.length < 6 || formData.confirm_password !== formData.new_password) {
             setPasserror(true)
             submit = false
-            console.log(submit)
-            console.log(formData.old_password)
-            console.log(formData.new_password)
-            console.log(formData.confirm_password)
         }
 
         if (submit) {
@@ -88,12 +83,9 @@ export default function ChangePassword(props) {
                     "confirm_password": formData.confirm_password,
                 })
                 .then((res) => {
-                    console.log({res});
                     props.closeDialog();
                 })
                 .catch(err => {
-                    console.log(err)
-                    console.log({err})
                     if (err.response.status === 400) {
                         setTransition(() => TransitionLeft);
                         setOpen(true);

@@ -40,7 +40,6 @@ const GradedDetails = () => {
         axiosInstance.get(`assignment/${responseId}/graded-response`)
             .then((res) => {
                 setGd(res.data);
-                console.log(res.data);
                 setMarks(res.data.mark);
                 setRemark(res.data.remark);
             })
@@ -69,11 +68,10 @@ const GradedDetails = () => {
         form_data.append("remark", remark);
         axiosInstance.put(`assignment/${gd.grade_id}/update-grade`, form_data)
             .then((res) => {
-                console.log(res);
                 closeDialog();
                 window.location.reload();
             })
-            .catch(err => console.log(err));
+            .catch(err => {});
     }
 
 

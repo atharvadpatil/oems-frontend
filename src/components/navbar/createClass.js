@@ -74,8 +74,6 @@ export default function CreateClass(props) {
 
         e.preventDefault();
 
-        console.log(classname);
-        console.log(selectedDate);
 
         // Validation
 
@@ -85,8 +83,6 @@ export default function CreateClass(props) {
         if (classname === "") {
             setClasserror(true)
             submit = false
-            console.log(submit)
-            console.log(classname)
         }
 
         if (submit) {
@@ -98,15 +94,12 @@ export default function CreateClass(props) {
                     "joining_code_expiry_date": format(selectedDate, 'yyyy-MM-dd'),
                 })
                 .then((res) => {
-                    console.log(res);
                     let msg = "Joining Code: " + (res.data.joining_code).toString()
                     setMessage(msg);
                     props.closeDialog();
                     openDialog();
                 })
                 .catch(err => {
-                    console.log(err)
-                    console.log({ err })
                     if (err.response.status === 400) {
                         setTransition(() => TransitionLeft);
                         setOpen(true);

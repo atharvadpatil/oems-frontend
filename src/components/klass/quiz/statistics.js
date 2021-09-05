@@ -48,11 +48,9 @@ const ClassMembers = () => {
         axiosInstance
             .get(`quiz/${classId}`)
             .then((res) => {
-                console.log(res);
                 setQuiz(res.data)
             })
             .catch(err => {
-                console.log(err)
             });
         // eslint-disable-next-line
     }, [])

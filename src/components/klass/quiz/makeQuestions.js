@@ -41,7 +41,6 @@ const MakeQuestions = ({ qnum }) => {
                 c++;
             }
         })
-        console.log(c);
         if (c === 0 && questions.length === qnum)
             return true;
         else
@@ -51,11 +50,9 @@ const MakeQuestions = ({ qnum }) => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        console.log(questions);
         let submit = true;
 
         submit = check(questions);
-        console.log(submit);
 
         if (submit) {
             // eslint-disable-next-line
@@ -72,11 +69,8 @@ const MakeQuestions = ({ qnum }) => {
                         "correct_option_number": m.correct_option,
                     })
                     .then((res) => {
-                        console.log(res);
                     })
                     .catch(err => {
-                        console.log(err)
-                        console.log({ err })
                         if (err.response.status === 400) {
                             setTransition(() => TransitionLeft);
                             setOpen(true);

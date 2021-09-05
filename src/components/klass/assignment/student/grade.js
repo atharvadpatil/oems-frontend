@@ -59,7 +59,6 @@ const Grade = () => {
             .then((res) => {
                 setRd(res.data['Response_Details']);
                 setAd(res.data['Assignment_Details']);
-                console.log(res.data);
             })
     }
 
@@ -83,8 +82,6 @@ const Grade = () => {
 
     const handleChange = (e) => {
         setSelectedFile(e.target.files[0]);
-        console.log(e.target.files[0]);
-        console.log(selectedFile);
         if (e.target.files[0]) {
             setIsFile(true);
         }
@@ -94,14 +91,12 @@ const Grade = () => {
         e.preventDefault();
         let form_data = new FormData();
         form_data.append('submission_file', selectedFile);
-        console.log(form_data);
         axiosInstance.put(`assignment/${rd.id}/update-response`, form_data)
             .then((res) => {
-                console.log(res);
                 closeDialog();
                 window.location.reload();
             })
-            .catch(err => console.log(err));
+            .catch(err => {});
     }
 
 

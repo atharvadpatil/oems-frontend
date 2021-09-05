@@ -63,7 +63,6 @@ const SharedFolder = () => {
         axiosInstance.get(`sharedfolder/${classId}`)
             .then((res) => {
                 setFiles(res.data);
-                console.log(res);
             })
     }
 
@@ -103,11 +102,10 @@ const SharedFolder = () => {
 
         axiosInstance.post(`sharedfolder/uploadfile`, form_data)
             .then(res => {
-                console.log(res);
                 closeDialog();
                 window.location.reload();
             })
-            .catch(err => console.log(err));
+            .catch(err => {});
     }
     // delete file
     const [openAlert, setOpenAlert] = useState(false);
@@ -126,11 +124,9 @@ const SharedFolder = () => {
         axiosInstance
             .delete(`sharedfolder/delete-shared-file/${id}`)
             .then((res) => {
-                console.log(res);
                 window.location.reload();
             })
             .catch(err => {
-                console.log(err);
             });
     }
 

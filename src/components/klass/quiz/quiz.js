@@ -72,7 +72,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RenderSwitch = ({ id, type }) => {
-    console.log(id + ' ' + type);
     if (type === "student") {
         switch (id) {
             case 0:

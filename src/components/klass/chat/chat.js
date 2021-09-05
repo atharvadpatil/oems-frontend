@@ -38,8 +38,6 @@ const Chat = ({ classId }) => {
     const chat = useRef(null)
 
     const scrollToBottom = () => {
-        console.log(chat.current.clientHeight);
-        console.log(window.innerHeight);
         if (chat.current.clientHeight > window.innerHeight) {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
         }
@@ -53,7 +51,6 @@ const Chat = ({ classId }) => {
         axiosInstance
             .get(`chat/message/${classId}`)
             .then((res) => {
-                console.log(res);
                 setMessages(res.data)
                 if (res.data.length > 0) {
                     let latest_msg_id = res.data[res.data.length - 1].id
@@ -63,7 +60,6 @@ const Chat = ({ classId }) => {
                 }
             })
             .catch(err => {
-                console.log(err)
             });
     }
 
@@ -89,7 +85,6 @@ const Chat = ({ classId }) => {
         if (text === "") {
             setTexterror(true)
             submit = false
-            console.log(submit)
         }
 
         if (submit) {
@@ -101,12 +96,9 @@ const Chat = ({ classId }) => {
                     "user_id": user.user_id,
                 })
                 .then((res) => {
-                    console.log(res);
                     setText("");
                 })
                 .catch(err => {
-                    console.log(err)
-                    console.log({ err })
                 });
         }
     };

@@ -52,7 +52,6 @@ export default function AddMember(props) {
 
         e.preventDefault();
 
-        console.log(email);
 
         // Validation
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -63,7 +62,6 @@ export default function AddMember(props) {
         if (email === "" || !re.test(email)) {
             setError(true)
             submit = false
-            console.log(submit)
         }
 
         if (submit) {
@@ -73,11 +71,9 @@ export default function AddMember(props) {
                     "email": email,
                 })
                 .then((res) => {
-                    console.log(res);
                     window.location.reload();
                 })
                 .catch(err => {
-                    console.log({err})
                     if (err.response.status === 400 && err.response.data.response === 'Invalid student email') {
                         setMessage('Student does not exist. Please Try Again');
                         setTransition(() => TransitionLeft);

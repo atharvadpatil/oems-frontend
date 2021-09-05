@@ -63,14 +63,12 @@ const TeacherAssignmentDetails = () => {
         axiosInstance.get(`assignment/${assignmentId}/teacher`)
             .then((res) => {
                 setAd(res.data);
-                console.log(res.data);
                 setName(res.data.name);
                 setInstructions(res.data.instructions);
                 setMarks(res.data.total_marks);
                 setDue(new Date(res.data.due_on));
             })
             .catch(err => {
-                console.log(err);
             });
     }
 
@@ -132,15 +130,13 @@ const TeacherAssignmentDetails = () => {
             form_data.append('ques_file', selectedQuesFile);
         }
 
-        console.log(form_data);
 
         axiosInstance.patch(`assignment/${assignmentId}/update-assignment`, form_data)
             .then((res) => {
-                console.log(res);
                 closeDialog();
                 window.location.reload();
             })
-            .catch(err => console.log(err));
+            .catch(err => {});
 
     }
 

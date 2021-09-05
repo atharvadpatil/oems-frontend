@@ -37,7 +37,6 @@ const ResponseDetails = () => {
         axiosInstance.get(`assignment/${responseId}/response`)
             .then((res) => {
                 setRd(res.data);
-                console.log(res.data);
             })
     }
 
@@ -70,7 +69,6 @@ const ResponseDetails = () => {
 
         axiosInstance.post(`assignment/grade-assignment`, form_data)
             .then((res) => {
-                console.log(res.data);
                 closeDialog();
                 setIndex(2);
             })

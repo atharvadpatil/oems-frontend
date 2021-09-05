@@ -82,7 +82,6 @@ const ResetPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(password);
 
         // Validation
         let submit = true
@@ -92,8 +91,6 @@ const ResetPassword = () => {
         if (password === "" || password.length < 6) {
             setPassworderror(true)
             submit = false
-            console.log(submit)
-            console.log(password)
         }
 
 
@@ -105,12 +102,9 @@ const ResetPassword = () => {
                     "uidb64": uidb64
                 })
                 .then((res) => {
-                    console.log(res);
-                    console.log(res.data);
                     openDialog();
                 })
                 .catch(err => { 
-					console.log(err)
 					if (err.response.status === 401) {
 						setTransition(() => TransitionLeft);
 						setOpen(true);

@@ -68,8 +68,6 @@ const StudentQuiz = () => {
                 c++;
             }
         })
-        console.log(c);
-        console.log(response.length + " " + len);
         if (c === 0 && response.length === len)
             return true;
         else
@@ -79,22 +77,17 @@ const StudentQuiz = () => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        console.log(quizResponse);
         let submit = true;
 
         submit = check(quizResponse);
-        console.log(submit);
 
         if (submit) {
             axiosInstance
                 .post(`quiz/response/${quizId}/${user.id}`, quizResponse)
                 .then((res) => {
-                    console.log(res);
                     setDrawerId(1);
                 })
                 .catch(err => {
-                    console.log(err)
-                    console.log({ err })
                     if (err.response.status === 400) {
                         setTransition(() => TransitionLeft);
                         setOpen(true);
@@ -124,14 +117,12 @@ const StudentQuiz = () => {
         axiosInstance
             .get(`quiz/question/${quizId}/${user.id}`)
             .then((res) => {
-                console.log(res);
                 setQuiz(res.data);
                 if (res.data.quiz_status && res.data.quiz_status === 'Active') {
                     setLen(res.data.questions.length);
                 }
             })
             .catch(err => {
-                console.log(err)
             });
         // eslint-disable-next-line
     }, [])

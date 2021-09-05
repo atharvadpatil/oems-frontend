@@ -75,7 +75,6 @@ const ForgotPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(email);
 
         // Validation
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -86,8 +85,6 @@ const ForgotPassword = () => {
         if (email === "" || !re.test(email)) {
             setEmailerror(true)
             submit = false
-            console.log(submit)
-            console.log(email)
         }
 
 
@@ -97,12 +94,9 @@ const ForgotPassword = () => {
                     "email": email
                 })
                 .then((res) => {
-                    console.log(res);
-                    console.log(res.data);
                     openDialog();
                 })
                 .catch(err => { 
-					console.log(err)
 					if (err.response.status === 400) {
 						setTransition(() => TransitionLeft);
 						setOpen(true);

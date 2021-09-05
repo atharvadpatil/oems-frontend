@@ -55,7 +55,6 @@ export default function JoinClass(props) {
 
         e.preventDefault();
 
-        console.log(joiningcode);
 
         // Validation
 
@@ -65,7 +64,6 @@ export default function JoinClass(props) {
         if (joiningcode === "" || isNaN(joiningcode)) {
             setError(true)
             submit = false
-            console.log(submit)
         }
 
         if (submit) {
@@ -75,13 +73,10 @@ export default function JoinClass(props) {
                     "joining_code": joiningcode,
                 })
                 .then((res) => {
-                    console.log(res);
                     props.closeDialog();
                     window.location.reload();
                 })
                 .catch(err => {
-                    console.log(err)
-                    console.log({ err })
                     if (err.response.status === 400 && err.response.data.response === 'Invalid joining code') {
                         setMessage('Invalid joining code. Please Try Again');
 						setTransition(() => TransitionLeft);
