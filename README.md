@@ -1,4 +1,76 @@
-# Getting Started with Create React App
+# OEMS (Online Education Management System) Frontend
+
+_Online Education Management System is a project that serves as the all-in-one place for teaching and learning.
+Our easy-to-use and secure tools helps educators manage, measure, and enrich learning experiences._
+
+_A [backend api](https://github.com/VirajPatidar/oems-backend) has been built using **Django REST framework** to achieve the same._
+
+<br/>
+
+**Link to the website:** [https://oems.netlify.app/](https://oems.netlify.app/)
+<br/>
+**Link to backend repo:** [https://github.com/VirajPatidar/oems-backend](https://github.com/VirajPatidar/oems-backend)
+
+
+### Tech Stack ###
+* React
+* Recoil
+* MATERIAL-UI
+* date-fns
+
+
+### Features ###
+* **Responsive Design**
+* **Material Design**
+* **Authentication**
+  * Registration
+  * Login/logout
+  * Account verification via email
+  * Change password
+  * Reset password via link on email
+  * Change profile picture
+
+* **Class**
+  * List class members
+  * Teacher:
+    * Create & delete classes
+    * Add & remove students from classes
+  * Student:
+    * Join class using joining code
+    * Leave class
+
+* **Assignment**
+  * Teacher:
+    * Create assignments and set due dates
+    * Modify/update assignment details
+    * Grade submitted responses and add remarks
+    * Modify/update  students' grade
+  * Student:
+    * Submit assignments
+    * Modify/update assignment response
+    * See marks & remarks given by teacher and improve
+
+* **Quiz**
+  * Teacher:
+    * Assess students by setting quizzes in an MCQ format
+    * Release marks and responses
+    * See quiz statistics
+  * Student:
+    * Attempt the quiz within given time
+    * See marks and responses after teacher releases responses
+  
+* **Chat**
+  * Keep in touch with your teacher and classmates using group chat
+
+* **Shared Folder**
+  * Upload, share and manage files with class members
+ 
+<br/>
+<br/>
+
+- - - -
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
