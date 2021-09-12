@@ -164,7 +164,7 @@ const QuizStatistics = () => {
                                         <Paper style={{ marginTop: "10px", backgroundColor: "#e1f5fe" }}>
                                             <ListItem key={m.id}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="avatar" src={`http://127.0.0.1:8000${m.profile_picture}`} />
+                                                    <Avatar alt="avatar" src={`https://oems-api.herokuapp.com${m.profile_picture}`} />
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary={m.name.toUpperCase()}

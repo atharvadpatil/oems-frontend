@@ -71,7 +71,7 @@ export default function LMenu() {
             .then(res => {
                 setUser({
                     ...user,
-                    profile_picture: `http://127.0.0.1:8000${res.data.profile_picture}`,
+                    profile_picture: `https://oems-api.herokuapp.com${res.data.profile_picture}`,
                 });
                 handleClose();
             })

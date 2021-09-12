@@ -118,7 +118,7 @@ const Chat = ({ classId }) => {
                         />
                         :
                         <ChatMsg
-                            avatar={`http://127.0.0.1:8000${m.profile_picture}`}
+                            avatar={`https://oems-api.herokuapp.com${m.profile_picture}`}
                             sentBy={m.sent_by.toUpperCase()}
                             messages={[
                                 m.message,

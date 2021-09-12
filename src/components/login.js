@@ -133,7 +133,7 @@ export default function SignIn() {
                         id: res.data.teacher_id || res.data.student_id,
                         user_id: res.data.user_id,
                         user_type: res.data.user_type,
-                        profile_picture: `http://127.0.0.1:8000${res.data.profile_picture}`,
+                        profile_picture: `https://oems-api.herokuapp.com${res.data.profile_picture}`,
                     });
 
                     setLogin(true);
