@@ -160,7 +160,7 @@ const SharedFolder = () => {
                                                         <DescriptionIcon color="primary" />
                                                     </Avatar>
                                                 </ListItemAvatar>
-                                                <Link href={`https://oems-api.herokuapp.com${f.filefield}`} target="_blank" style={{ textDecoration: "None" }}>
+                                                <Link href={`${f.filefield}`} target="_blank" style={{ textDecoration: "None" }}>
                                                     <ListItemText
                                                         primary={f.title}
                                                         secondary={`Uploaded by ${f.name} on ${format(new Date(f.timestamp), "dd-MM-yyyy")}`}

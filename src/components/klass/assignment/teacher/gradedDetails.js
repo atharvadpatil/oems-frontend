@@ -111,7 +111,7 @@ const GradedDetails = () => {
                             Submitted File:
                         </Typography>
                     </Box>
-                    <Link href={`https://oems-api.herokuapp.com${gd.submission_file}`} target="_blank" style={{ textDecoration: "None" }}>
+                    <Link href={`${gd.submission_file}`} target="_blank" style={{ textDecoration: "None" }}>
                         <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                             <ListItem>
                                 <ListItemAvatar>

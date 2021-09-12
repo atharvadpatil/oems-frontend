@@ -98,7 +98,7 @@ const ClassMembers = () => {
                                     {members && members.teacher[0] &&
                                         <ListItem>
                                             <ListItemAvatar>
-                                                <Avatar alt="avatar" src={`https://oems-api.herokuapp.com${members.teacher[0].profile_picture}`} />
+                                                <Avatar alt="avatar" src={`${members.teacher[0].profile_picture}`} />
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={members.teacher[0].name}
@@ -112,7 +112,7 @@ const ClassMembers = () => {
                                     {members && members.students.length > 0 && members.students.map(m => (
                                         <ListItem key={m.id}>
                                             <ListItemAvatar>
-                                                <Avatar alt="avatar" src={`https://oems-api.herokuapp.com${m.profile_picture}`} />
+                                                <Avatar alt="avatar" src={`${m.profile_picture}`} />
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={m.name}

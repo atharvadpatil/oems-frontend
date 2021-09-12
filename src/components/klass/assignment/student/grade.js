@@ -142,7 +142,7 @@ const Grade = () => {
                     <List dense={dense}>
                         {ad.ques_file ?
                             (
-                                <Link href={`https://oems-api.herokuapp.com${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
+                                <Link href={`${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
                                     {/* not responsive  */}
                                     <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                                         <ListItem button>
@@ -178,7 +178,7 @@ const Grade = () => {
                                 {rd.submission_status}
                             </Typography>
                     </Box>
-                    <Link href={`https://oems-api.herokuapp.com${rd.submission_file}`} target="_blank" style={{ textDecoration: "None" }}>
+                    <Link href={`${rd.submission_file}`} target="_blank" style={{ textDecoration: "None" }}>
                         {/* not responsive  */}
                         <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                             <ListItem>

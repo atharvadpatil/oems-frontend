@@ -148,7 +148,7 @@ const AssignmentDetails = () => {
                     <List dense={dense}>
                         {ad.ques_file ?
                             (
-                                <Link href={`https://oems-api.herokuapp.com${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
+                                <Link href={`${ad.ques_file}`} target="_blank" style={{ textDecoration: "None" }}>
                                     <Paper style={{ backgroundColor: "#e1f5fe", maxWidth: "650px" }} elevation={2}>
                                         <ListItem>
                                             <ListItemAvatar>
