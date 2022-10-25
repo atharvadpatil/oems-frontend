@@ -3,13 +3,13 @@
 _Online Education Management System is a project that serves as the all-in-one place for teaching and learning.
 Our easy-to-use and secure tools helps educators manage, measure, and enrich learning experiences._
 
-_A [backend api](https://github.com/VirajPatidar/oems-backend) has been built using **Django REST framework** to achieve the same._
+_A [backend api](https://github.com/atharvadpatil/oems-backend) has been built using **Django REST framework** to achieve the same._
 
 <br/>
 
 **Link to the website:** [https://oems.netlify.app/](https://oems.netlify.app/)
 <br/>
-**Link to backend repo:** [https://github.com/VirajPatidar/oems-backend](https://github.com/VirajPatidar/oems-backend)
+**Link to backend repo:** [https://github.com/atharvadpatil/oems-backend](https://github.com/atharvadpatil/oems-backend)
 
 
 ### Tech Stack ###
